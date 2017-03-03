@@ -6,11 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CreateArsipTable' => $baseDir . '/database/migrations/2017_01_02_143614_create_arsip_table.php.php',
-    'CreateKategoriTable' => $baseDir . '/database/migrations/2017_01_02_143921_create_kategori_table.php.php',
-    'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-    'CreatePesanTable' => $baseDir . '/database/migrations/2017_01_02_144729_create_pesan_table.php.php',
-    'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
@@ -517,6 +512,14 @@ return array(
     'SebastianBergmann\\RecursionContext\\Exception' => $vendorDir . '/sebastian/recursion-context/src/Exception.php',
     'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => $vendorDir . '/sebastian/recursion-context/src/InvalidArgumentException.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'TArsip' => $baseDir . '/database/migrations/2017_03_03_141645_t_arsip.php',
+    'TIsiPesan' => $baseDir . '/database/migrations/2017_03_03_141706_t_isi_pesan.php',
+    'TKategori' => $baseDir . '/database/migrations/2017_03_03_141652_t_kategori.php',
+    'TLog' => $baseDir . '/database/migrations/2017_03_03_141728_t_log.php',
+    'TPemberitahuan' => $baseDir . '/database/migrations/2017_03_03_141714_t_pemberitahuan.php',
+    'TPesan' => $baseDir . '/database/migrations/2017_03_03_141658_t_pesan.php',
+    'TStatistik' => $baseDir . '/database/migrations/2017_03_03_141721_t_statistik.php',
+    'TUser' => $baseDir . '/database/migrations/2017_03_03_141631_t_user.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
 );
