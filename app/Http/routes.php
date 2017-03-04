@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [
+  'uses' => 'LoginController@index',
+  'as' => 'login.index'
+]);
+
+Route::get('/dashboard', function () {
     return view('pages.dashboard');
 });
 
