@@ -265,11 +265,6 @@ class ComposerStaticInit22f4ad899c0b387d674505a6cc1a08a2
     );
 
     public static $classMap = array (
-        'CreateArsipTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_02_143614_create_arsip_table.php.php',
-        'CreateKategoriTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_02_143921_create_kategori_table.php.php',
-        'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-        'CreatePesanTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_02_144729_create_pesan_table.php.php',
-        'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
@@ -776,6 +771,14 @@ class ComposerStaticInit22f4ad899c0b387d674505a6cc1a08a2
         'SebastianBergmann\\RecursionContext\\Exception' => __DIR__ . '/..' . '/sebastian/recursion-context/src/Exception.php',
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'TArsip' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141645_t_arsip.php',
+        'TIsiPesan' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141706_t_isi_pesan.php',
+        'TKategori' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141652_t_kategori.php',
+        'TLog' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141728_t_log.php',
+        'TPemberitahuan' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141714_t_pemberitahuan.php',
+        'TPesan' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141658_t_pesan.php',
+        'TStatistik' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141721_t_statistik.php',
+        'TUser' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141631_t_user.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
     );
