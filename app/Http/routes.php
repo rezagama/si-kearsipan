@@ -16,9 +16,20 @@ Route::get('/', [
   'as' => 'login.index'
 ]);
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-});
+Route::post('/login', [
+  'uses' => 'LoginController@login',
+  'as' => 'user.login'
+]);
+
+Route::get('/logout', [
+  'uses' => 'LoginController@logout',
+  'as' => 'user.logout'
+]);
+
+Route::get('/dashboard', [
+  'uses' => 'DashboardController@index',
+  'as' => 'dashboard.index'
+]);
 
 Route::get('/arsip/kategori', [
     'uses' => 'KategoriArsipController@index',

@@ -7,7 +7,7 @@
         <title>Sistem Informasi Kearsipan</title>
 
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url('css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{url('css/font-awesome.min.css')}}">
         <link rel="stylesheet" href="{{url('css/login.css')}}">
         <link rel="shortcut icon" href="{{url('favicon.ico')}}">
@@ -23,6 +23,18 @@
                         </div>
                     </div>
                     <div class="row form-box">
+                      @if(Session::has('error'))
+                      <div class="alert alert-warning fade in alert-dismissable">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                          {{Session::get('error')}}
+                      </div>
+                      @endif
+                      @if(Session::has('info'))
+                      <div class="alert alert-info fade in alert-dismissable">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                          {{Session::get('info')}}
+                      </div>
+                      @endif
                       <div class="col-sm-8">
                         <div id="carousel" class="carousel slide" data-ride="carousel">
                           <ol class="carousel-indicators">
@@ -56,14 +68,15 @@
                           </div>
                         </div>
                         <div class="form-bottom">
-                          <form role="form" action="" method="post" class="login-form">
+                          <form id="form" action="{{URL::route('user.login')}}" method="POST" class="login-form" enctype="multipart/form-data">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                               <label class="sr-only" for="form-username">Username</label>
-                                <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                <input type="text" name="nip" placeholder="NIP" class="form-username form-control" id="form-username">
                               </div>
                               <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
-                                <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                <input type="password" name="password" placeholder="Password" class="form-password form-control" id="form-password">
                               </div>
                               <button type="submit" class="btn">Login</button>
                           </form>
