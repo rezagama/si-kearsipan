@@ -77,6 +77,11 @@
 					<i class="fa fa-envelope"></i>
 					Pesan </a>
 				</li>
+        <li id="logout">
+					<a href="{{URL::route('user.logout')}}">
+					<i class="fa fa-power-off"></i>
+					Logout </a>
+				</li>
 			</ul>
 		</div>
 	</ul>
