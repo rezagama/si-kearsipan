@@ -92,8 +92,16 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'nip' => [
+            'unique' => 'Akun dengan NIP yang anda masukkan sudah terdaftar.',
+            'min' => 'Nomor Induk Pegawai tidak valid. Pastikan NIP yang anda masukkan sudah benar.',
+        ],
+        'foto' => [
+            'size' => 'Maaf, foto tidak boleh melebihi 2MB.',
+            'image' => 'File yang anda pilih tidak valid. Pilih file gambar untuk memasang foto.'
+        ],
+        'email' => [
+            'unique' => 'Email yang anda masukkan sudah digunakan.'
         ],
     ],
 

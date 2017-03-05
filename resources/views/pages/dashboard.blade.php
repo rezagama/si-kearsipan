@@ -196,5 +196,4 @@
 @section('script')
   <script src="{{url('js/highcharts.js')}}"></script>
   <script src="{{url('js/dashboard.js')}}"></script>
-  <!-- Datatables-->
 @endsection

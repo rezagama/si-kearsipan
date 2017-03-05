@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+class SessionExpired
 {
     /**
      * Handle an incoming request.
@@ -17,13 +17,8 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->guest()) {
-            if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->route('login.index')
-                      ->with('error', 'Anda harus login untuk menggunakan fasilitas Sistem Informasi Kearsipan');
-            }
+        if (Auth::guest()) {
+            return Redirect::route('login.index')->with('error', 'Anda telah keluar dari Sistem Informasi Kearsipan.');
         }
 
         return $next($request);

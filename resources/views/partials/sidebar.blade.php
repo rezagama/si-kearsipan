@@ -20,8 +20,8 @@
 		</div>
 		<div class="main-menu">
 			<ul class="nav">
-				<li id="dashboard" class="active">
-					<a href="">
+				<li id="dashboard">
+					<a href="{{URL::route('dashboard.index')}}">
 					<i class="fa fa-home"></i>
 					Dashboard </a>
 				</li>
@@ -31,7 +31,7 @@
 					Daftar Akun </a>
           <ul id="sub-menu-akun" class="panel-collapse collapse">
             <li>
-              <a href=""><i class="fa fa-group"></i> Admin</a>
+              <a href="{{URL::route('admin.index')}}"><i class="fa fa-group"></i> Admin</a>
               <a href=""><i class="fa fa-graduation-cap"></i> Staff</a>
             </li>
           </ul>
