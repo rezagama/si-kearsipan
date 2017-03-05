@@ -45,7 +45,6 @@
                             <div class="item active">
                               <img src="{{url('img/tugu_jogja.png')}}" alt="Jogja">
                             </div>
-
                             <div class="item">
                               <img src="{{url('img/bank_indonesia.jpg')}}" alt="BI">
                             </div>

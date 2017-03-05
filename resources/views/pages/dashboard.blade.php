@@ -2,13 +2,38 @@
 
 @section('title', 'Sistem Informasi Kearsipan')
 
-@section('breadcrumb', 'Selamat Datang di Sistem Informasi Kearsipan Daerah Istimewa Yogyakarta')
-
 @section('content')
 <div class="row">
+  <div id="carousel" class="carousel slide pengumuman" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carousel" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="{{url('img/tugu_jogja.png')}}" alt="Jogja">
+        <span class="text-pengumuman"><p class="judul-pengumuman">Pengumuman A</p>
+
+        <p class="deskripsi-pengumuman">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></span>
+        <span class="transparent-bg"/>
+      </div>
+
+      <div class="item">
+        <img src="{{url('img/bank_indonesia.jpg')}}" alt="BI">
+        <span class="text-pengumuman"><p class="judul-pengumuman">Pengumuman B</p>
+
+        <p class="deskripsi-pengumuman">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></span>
+        <span class="transparent-bg"/>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row v-spacing">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="info-box">
-      <span class="info-box-icon bg-brown"><i class="fa fa-user"></i></span>
+      <span class="info-box-icon bg-gray"><i class="fa fa-user"></i></span>
       <div class="info-box-content">
         <span class="info-box-number">5</span>
         <span class="info-box-text">Admin</span>
@@ -20,7 +45,7 @@
   <!-- /.col -->
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-brown"><i class="fa fa-users"></i></span>
+      <span class="info-box-icon bg-gray"><i class="fa fa-users"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-number">7</span>
@@ -37,11 +62,11 @@
 
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-brown"><i class="fa fa-lock"></i></span>
+      <span class="info-box-icon bg-gray"><i class="fa fa-lock"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-number">55</span>
-        <span class="info-box-text">Kali Login</span>
+        <span class="info-box-number">55x</span>
+        <span class="info-box-text">Login</span>
       </div>
       <!-- /.info-box-content -->
     </div>
@@ -50,7 +75,7 @@
   <!-- /.col -->
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-brown"><i class="fa fa-calendar"></i></span>
+      <span class="info-box-icon bg-gray"><i class="fa fa-calendar"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-number">12/15/2016</span>

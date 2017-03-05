@@ -15,13 +15,7 @@
     <!--@include('partials.header')-->
     <div id="wrapper">
       @include('partials.sidebar')
-      <!-- Page content -->
       <div id="page-content-wrapper">
-          <div class="content-header">
-            <a id="menu-toggle" href="#" class="btn btn-default"><i class="fa fa-th-list"></i></a>
-            <span class="nav-breadcrumb">@yield('breadcrumb')</span>
-          </div>
-          <!-- Keep all page content within the page-content inset div! -->
           <div class="page-content">
               <div class="container-fluid">
                   @yield('content')
