@@ -37,12 +37,7 @@ class LoginController extends Controller
     }
 
     public function logout(){
-      if(Auth::check()){
-        if(Auth::logout()){
-          return Redirect::route('login.index')->with('info', 'Anda telah berhasil keluar dari Sistem Informasi Kearsipan.');
-        }
-      } else {
-        return Redirect::route('login.index')->with('error', 'Anda telah keluar dari Sistem Informasi Kearsipan.');
-      }
+      Auth::logout();
+      return Redirect::route('login.index')->with('info', 'Anda telah berhasil keluar dari Sistem Informasi Kearsipan.');
     }
 }

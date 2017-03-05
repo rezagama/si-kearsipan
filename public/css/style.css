@@ -169,6 +169,10 @@ body{
   text-align: center;
 }
 
+.preview{
+  width: 150px;
+}
+
 .avatar img {
   float: none;
   margin: 0 auto;
@@ -481,8 +485,7 @@ body{
 .small-avatar{
   float: none;
   margin: 0 auto;
-  width: 70px;
-  height: 70px;
+  width: 40px;
   overflow: hidden;
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
@@ -572,4 +575,26 @@ body{
 
 .v-spacing {
   margin-top: 20px
+}
+
+.no-spacing{
+  margin: 0;
+  padding: 0;
+}
+
+.inline, .btn-sm {
+  display: inline-block;
+}
+
+.dataTables_info{
+  margin-top: 5px;
+}
+
+.parsley-error{
+  border: solid 1px #f19592;
+  background: rgba(212, 63, 58, 0.08);
+}
+
+.th-sm{
+  min-width: 45px;
 }

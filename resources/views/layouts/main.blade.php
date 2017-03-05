@@ -18,6 +18,18 @@
       <div id="page-content-wrapper">
           <div class="page-content">
               <div class="container-fluid">
+                  @if(Session::has('error'))
+                  <div class="alert alert-warning fade in alert-dismissable v-spacing">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                      {{Session::get('error')}}
+                  </div>
+                  @endif
+                  @if(Session::has('info'))
+                  <div class="alert alert-info fade in alert-dismissable v-spacing">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                      {{Session::get('info')}}
+                  </div>
+                  @endif
                   @yield('content')
               </div>
           </div>
