@@ -1,16 +1,17 @@
 body{
   background-color: #f6f9fb;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 
 #wrapper {
-  padding-left: 250px;
+  padding-left: 300px;
   transition: all 0.4s ease 0s;
 }
 
 #sidebar-wrapper {
-  margin-left: -250px;
-  left: 250px;
-  width: 250px;
+  margin-left: -300px;
+  left: 300px;
+  width: 300px;
   background: #434348;
   position: fixed;
   height: 100%;
@@ -26,7 +27,7 @@ body{
 .sidebar-nav {
   position: absolute;
   top: 0;
-  width: 250px;
+  width: 300px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -119,12 +120,12 @@ body{
 
   #wrapper.active {
     position: relative;
-    left: 250px;
+    left: 300px;
   }
 
   #wrapper.active #sidebar-wrapper {
-    left: 250px;
-    width: 250px;
+    left: 300px;
+    width: 300px;
     transition: all 0.4s ease 0s;
   }
 
@@ -356,22 +357,26 @@ body{
 }
 
 .info-box-text {
-  display: block;
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-transform: uppercase;
+  font-weight: 200;
 }
 
 .info-box-number {
   display: block;
   font-weight: bold;
   font-size: 24px;
+  font-weight: 200;
 }
 
 .bg-brown{
-  background-color: #a0571a !important;
+  background-color: #878787 !important;
+}
+
+.bg-gray{
+  background-color: #878787 !important;
 }
 
 .bg-skyblue{
@@ -521,4 +526,50 @@ body{
 .table-number{
   width: 20px;
   text-align: center;
+}
+
+.pengumuman > .carousel-inner {
+  height: 400px;
+}
+
+.pengumuman > .carousel-inner > .item > img {
+  position: absolute;
+  height: auto;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.text-pengumuman {
+  z-index: 100;
+  position: absolute;
+  color: white;
+  font-size: 24px;
+  padding: 15px;
+  top: 235px;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.judul-pengumuman {
+  font-weight: 500;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.deskripsi-pengumuman {
+  width: 850px;
+  font-size: 16px;
+  font-weight: 200;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.transparent-bg {
+  z-index: 1;
+  position: absolute;
+  background: rgba(51, 51, 51, 0.38);
+  height: 400px;
+  width: 100%;
+}
+
+.v-spacing {
+  margin-top: 20px
 }
