@@ -64,10 +64,9 @@
                     <tr role="row">
                       <th class="th-sm">No.</th>
                       <th></th>
-                      <th>Nama</th>
+                      <th class="th-md">Nama</th>
                       <th>NIP</th>
                       <th>Email</th>
-                      <th>No. HP</th>
                       <th hidden></th>
                     </tr>
                   </thead>
@@ -80,14 +79,30 @@
                         <td>{{$admin->nama}}</td>
                         <td>{{$admin->nip}}</td>
                         <td>{{$admin->email}}</td>
-                        <td>{{$admin->no_hp}}</td>
                         <td>
-                          <a href="" target="_blank" type="button" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-download"></i></a>
-                          <form action="" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus akun ini?');">
-                            <input type="hidden" name="_method" value="DELETE"></input>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
-                            <button type="submit" class="btn btn-danger btn-sm btn-sm-spacing"><i class="fa fa-trash"></i></button>
-                          </form>
+                          @if($admin->id_user != Auth::user()->id_user && $admin->email != 'admin@admin.com')
+                            @if($admin->status == 1)
+                            <form action="{{URL::route('admin.status', [$admin->id_user, 2])}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menonaktifkan akun ini?');">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+                              <button type="submit" class="btn btn-warning btn-sm btn-sm-spacing"><i class="fa fa-lock"></i></button>
+                            </form>
+                            @else
+                            <form action="{{URL::route('admin.status', [$admin->id_user, 1])}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin mengaktifkan akun ini?');">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+                              <button type="submit" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-check"></i></button>
+                            </form>
+                            @endif
+                            <form action="{{URL::route('admin.level', [$admin->id_user, 1])}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin merubah akun ini menjadi akun staff?');">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+                              <button type="submit" class="btn btn-info btn-sm btn-sm-spacing"><i class="fa fa-level-down"></i></button>
+                            </form>
+                            <form action="{{URL::route('admin.destroy', $admin->id_user)}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus akun ini?');">
+                              <input type="hidden" name="_method" value="DELETE"></input>
+                              <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+                              <button type="submit" class="btn btn-danger btn-sm btn-sm-spacing"><i class="fa fa-trash"></i></button>
+                            </form>
+                          @endif
+                          <a href="" type="button" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-chevron-right"></i></a>
                         </td>
                       </tr>
                     @endforeach

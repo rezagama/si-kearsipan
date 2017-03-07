@@ -26,22 +26,41 @@ Route::get('/logout', [
   'as' => 'user.logout'
 ])->middleware('session');
 
-Route::get('/dashboard', [
-  'uses' => 'DashboardController@index',
-  'as' => 'dashboard.index'
-])->middleware('auth');
+Route::group(['middleware' => ['auth', 'status']], function () {
+  Route::get('/dashboard', [
+    'uses' => 'DashboardController@index',
+    'as' => 'dashboard.index'
+  ]);
+});
 
-Route::get('/akun/admin', [
-    'uses' => 'AdminController@index',
-    'as' => 'admin.index'
-])->middleware('auth');
+Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
+  Route::get('/akun/admin', [
+      'uses' => 'AdminController@index',
+      'as' => 'admin.index'
+  ]);
 
-Route::post('/akun/admin/store', [
-  'uses' => 'AdminController@store',
-  'as' => 'admin.store'
-])->middleware('auth');
+  Route::post('/akun/admin/store', [
+    'uses' => 'AdminController@store',
+    'as' => 'admin.store'
+  ]);
 
-Route::get('/arsip/kategori', [
-    'uses' => 'KategoriArsipController@index',
-    'as' => 'kategori.index'
-])->middleware('auth');
+  Route::post('/akun/admin/update/{id}/status/{status}', [
+    'uses' => 'AdminController@status',
+    'as' => 'admin.status'
+  ]);
+
+  Route::post('/akun/admin/update/{id}/level/{level}', [
+    'uses' => 'AdminController@level',
+    'as' => 'admin.level'
+  ]);
+
+  Route::delete('/akun/admin/hapus/{id}', [
+    'uses' => 'AdminController@destroy',
+    'as' => 'admin.destroy'
+  ]);
+
+  Route::get('/arsip/kategori', [
+      'uses' => 'KategoriArsipController@index',
+      'as' => 'kategori.index'
+  ]);
+});

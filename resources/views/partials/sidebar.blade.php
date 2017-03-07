@@ -1,17 +1,22 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav profile-sidebar">
     <div class="navbar navbar-title">
-      <a href="" class="nav-title"><i class="fa fa-shield"></i> <span>Admin Panel</span></a>
+      <a href="" class="nav-title"><i class="fa fa-shield"></i> <span>@if(Auth::user()->level == 0) Admin @else Staff
+      @endif Panel</span></a>
     </div>
 		<div class="avatar">
-			<img src="https://cdnil0.fiverrcdn.com/deliveries/458463/medium/create-cartoon-caricatures_ws_1364550258.png?1364550258" class="img-responsive" alt="">
+			<img src="{{url(Auth::user()->foto)}}" class="img-responsive thumbnail" alt="">
 		</div>
 		<div class="user-info">
 			<div class="username">
-				Reza
+				{{Auth::user()->nama}}
 			</div>
 			<div class="title">
-				Admin
+				@if(Auth::user()->level == 0)
+          Admin
+        @else
+          Staff
+        @endif
 			</div>
 		</div>
 		<div class="buttons">
@@ -25,7 +30,8 @@
 					<i class="fa fa-home"></i>
 					Dashboard </a>
 				</li>
-				<li id="akun">
+				@if(Auth::user()->level == 0)
+        <li id="akun">
 					<a class="chevron-accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#sub-menu-akun">
 					<i class="fa fa-user"></i>
 					Daftar Akun </a>
@@ -36,6 +42,7 @@
             </li>
           </ul>
 				</li>
+        @endif
         <li id="arsip">
 					<a class="chevron-accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#sub-menu-arsip">
 					<i class="fa fa-book"></i>
@@ -49,23 +56,17 @@
             </li>
           </ul>
 				</li>
-				<li id="kategori-arsip">
+				@if(Auth::user()->level == 0)
+        <li id="kategori">
+          <a href="{{URL::route('kategori.index')}}">
+          <i class="fa fa-list"></i>
+          Kategori Arsip </a>
+        </li>
+        @endif
+        <li id="statistik-arsip">
 					<a href="{{URL::route('kategori.index')}}">
-					<i class="fa fa-list"></i>
-					Kategori Arsip </a>
-				</li>
-        <li id="statistik">
-					<a class="chevron-accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#sub-menu-statistik">
 					<i class="fa fa-line-chart"></i>
 					Statistik </a>
-          <ul id="sub-menu-statistik" class="panel-collapse collapse">
-            <li>
-              <a href=""><i class="fa fa-line-chart"></i> Arsip Aktif</a>
-              <a href=""><i class="fa fa-line-chart"></i> Arsip Inaktif</a>
-              <a href=""><i class="fa fa-line-chart"></i> Arsip Statis</a>
-              <a href=""><i class="fa fa-line-chart"></i> Arsip Dimusnahkan</a>
-            </li>
-          </ul>
 				</li>
         <li id="riwayat">
 					<a href="">
