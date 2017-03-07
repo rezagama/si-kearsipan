@@ -170,7 +170,11 @@ body{
 }
 
 .preview{
-  width: 150px;
+  width: 85%;
+}
+
+.th-md{
+  min-width: 160px;
 }
 
 .avatar img {
@@ -178,9 +182,6 @@ body{
   margin: 0 auto;
   width: 50%;
   height: 50%;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  border-radius: 50% !important;
 }
 
 .user-info {
@@ -354,10 +355,10 @@ body{
   .margin-spacing-sm{
     margin-top: 10px;
   }
+}
 
-  .btn-sm-spacing{
-    margin-top: 5px;
-  }
+.btn-sm-spacing{
+  margin-top: 5px;
 }
 
 .info-box-text {

@@ -7,6 +7,7 @@
   use Session;
   use Redirect;
   use View;
+  use File;
 
   class App
   {
@@ -40,7 +41,7 @@
         $n = rand(0, $alphaLength);
         $password[] = $alphabet[$n];
       }
-      return implode($password); 
+      return implode($password);
     }
 
     public static function generatePasswordHash($password){
@@ -68,6 +69,49 @@
 
     public static function getToken(){
       return Session::token();;
+    }
+
+    public static function getLevelMessage($user, $level){
+      $msg = '';
+      switch ($level) {
+        case 1:
+          $msg = 'Akun dengan NIP '.$user->nip.' berhasil dirubah menjadi Staff.';
+          break;
+        default:
+          $msg = 'Akun dengan NIP '.$user->nip.' berhasil dirubah menjadi Admin.';
+          break;
+      }
+
+      return $msg;
+    }
+
+    public static function getStatusMessage($user, $status){
+      $msg = '';
+      switch ($status) {
+        case 1:
+          $msg = 'Akun dengan NIP '.$user->nip.' berhasil diaktifkan.';
+          break;
+        case 2:
+          $msg = 'Akun dengan NIP '.$user->nip.' berhasil dinonaktifkan.';
+          break;
+      }
+
+      return $msg;
+    }
+
+    public static function deleteUser($user){
+      $isSuccess = false;
+      if(File::exists($user->foto)){
+        $isSuccess = App::deleteProfile($user);
+      }
+      return $isSuccess;
+    }
+
+    private static function deleteProfile($user){
+      if($user->foto != 'img/profile.jpg'){
+        File::delete($user->foto);
+      }
+      return $user->delete();
     }
 
     public static function formatDateTime($date){

@@ -62,4 +62,46 @@ class AdminController extends Controller
         return Redirect::back()->with('error', $v->errors()->all()[0]);
       }
     }
+
+    public function status($id, $status){
+      $user = User::where('id_user', $id)->first();
+
+      if($user){
+        $msg = App::getStatusMessage($user, $status);
+        $user->status = $status;
+        $user->save();
+
+        return Redirect::back()->with('info', $msg);
+      } else {
+        return Redirect::back()->with('error', 'Akun tidak ditemukan.');
+      }
+    }
+
+    public function level($id, $level){
+      $user = User::where('id_user', $id)->first();
+
+      if($user){
+        $msg = App::getLevelMessage($user, $level);
+        $user->level = $level;
+        $user->save();
+
+        return Redirect::back()->with('info', $msg);
+      } else {
+        return Redirect::back()->with('error', 'Akun tidak ditemukan.');
+      }
+    }
+
+    public function destroy($id){
+      $user = User::where('id_user', $id)->first();
+      $nip = $user->nip;
+      if($user){
+        if(App::deleteUser($user)){
+          return Redirect::back()->with('info', 'Akun dengan NIP '.$nip.' berhasil dihapus.');
+        } else {
+          return Redirect::back()->with('error', 'Terjadi kesalahan sistem, harap coba beberapa saat lagi.');
+        }
+      } else {
+        return Redirect::back()->with('error', 'Akun dengan NIP '.$nip.' tidak ditemukan.');
+      }
+    }
 }
