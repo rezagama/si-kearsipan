@@ -38,7 +38,7 @@
           <ul id="sub-menu-akun" class="panel-collapse collapse">
             <li>
               <a href="{{URL::route('admin.index')}}"><i class="fa fa-group"></i> Admin</a>
-              <a href=""><i class="fa fa-graduation-cap"></i> Staff</a>
+              <a href="{{URL::route('staff.index')}}"><i class="fa fa-graduation-cap"></i> Staff</a>
             </li>
           </ul>
 				</li>

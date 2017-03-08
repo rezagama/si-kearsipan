@@ -5,15 +5,14 @@ $(document).ready(function(){
    });
 
    function getUrlParameter() {
-     var lastIdx = document.URL.lastIndexOf('/') + 1;
-     var selectedMenu = document.URL.substr(lastIdx);
+     var selectedMenu = window.location.pathname.replace(/^\/([^\/]*).*$/, '$1');
      return selectedMenu;
    }
 
    function setActiveMenu(selectedMenu){
      removeSelectedMenu();
      switch (selectedMenu) {
-       case 'admin':
+       case 'akun':
          $('#akun').addClass('active');
          break;
        default:

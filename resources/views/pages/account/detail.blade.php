@@ -23,6 +23,7 @@
             <p>{{$user->email}}</p>
           </div>
         </div>
+        <hr/>
         <div class="container-fluid no-spacing">
           <div class="col-md-6 col-sm-6 col-xs-12">
             <label>No. HP</label>
@@ -61,7 +62,7 @@
                 <span class="label label-info inline">Staff</span>
               @endif
               @if($user->status == 0)
-                <span class="label label-warning inline">Pending</span>
+                <span class="label label-warning inline">Belum Aktif</span>
               @elseif($user->status == 1)
                 <span class="label label-success inline">Aktif</span>
               @else
