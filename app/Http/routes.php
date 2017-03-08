@@ -31,6 +31,11 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'uses' => 'DashboardController@index',
     'as' => 'dashboard.index'
   ]);
+
+  Route::get('akun/{id}/profil', [
+    'uses' => 'AccountController@show',
+    'as' => 'account.show'
+  ]);
 });
 
 Route::group(['middleware' => ['auth', 'admin', 'status']], function () {

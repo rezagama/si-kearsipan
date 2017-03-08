@@ -13,9 +13,7 @@
         <div class="panel-body">
           <div class="container-fluid no-spacing">
             <div class="col-md-5 no-spacing">
-              <div class="input-group">
-                <img src="{{url('img/profile.jpg')}}" class="thumbnail preview"/>
-              </div>
+              <img src="{{url('img/profile.jpg')}}" class="thumbnail preview"/>
             </div>
             <div class="col-md-7 no-spacing">
               <div class="input-group">
@@ -102,7 +100,7 @@
                               <button type="submit" class="btn btn-danger btn-sm btn-sm-spacing"><i class="fa fa-trash"></i></button>
                             </form>
                           @endif
-                          <a href="" type="button" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-chevron-right"></i></a>
+                          <a href="{{URL::route('account.show', $admin->id_user)}}" type="button" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-chevron-right"></i></a>
                         </td>
                       </tr>
                     @endforeach
