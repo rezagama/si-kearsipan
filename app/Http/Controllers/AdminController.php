@@ -14,7 +14,7 @@ class AdminController extends Controller
 {
     public function index(){
       $admin = User::where('level', 0)->orderBy('created_at', 'DESC')->get();
-      return view('pages.akun.admin.index')->with('admin', $admin);
+      return view('pages.account.admin.index')->with('admin', $admin);
     }
 
     public function store(Request $request){
