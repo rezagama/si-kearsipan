@@ -36,6 +36,16 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'uses' => 'AccountController@show',
     'as' => 'account.show'
   ]);
+
+  Route::get('/akun/staff', [
+      'uses' => 'StaffController@index',
+      'as' => 'staff.index'
+  ]);
+
+  Route::post('/akun/staff/store', [
+    'uses' => 'StaffController@store',
+    'as' => 'staff.store'
+  ]);
 });
 
 Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
