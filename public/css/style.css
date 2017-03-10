@@ -259,8 +259,8 @@ body{
 }
 
 .main-menu ul li.active a {
-  color: #5a7391;
-  background-color: #f6f9fb;
+  color: #5a7391 !important;
+  background-color: #f6f9fb !important;
   border-right: 4px solid #9cb6d1;
   margin-left: -2px;
 }
@@ -607,4 +607,37 @@ hr {
     border-top: 1px solid #ccc;
     margin: 1em 2em;
     padding: 0;
+}
+
+.folder img{
+  max-width: 50%;
+}
+
+.folder a{
+  font-weight: 200;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.folder > .kategori {
+  text-align: center;
+  padding: 9px;
+  color: #333;
+}
+
+.collapsed{
+  color: #fff !important;
+  background: transparent !important;
+  border-right: 0px !important;
+}
+
+.btn-folder{
+  top: 10px;
+  right: 50px;
+  padding: 5px;
+  min-width: 27px;
+  min-height: 15px;
+  font-size: 10px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 100;
 }

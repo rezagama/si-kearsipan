@@ -99,6 +99,13 @@
       return $msg;
     }
 
+    public static function isValueNull($val){
+      if($val == ''){
+        return $val = null;
+      }
+      return $val;
+    }
+
     public static function deleteUser($user){
       $isSuccess = false;
       if(File::exists($user->foto)){
