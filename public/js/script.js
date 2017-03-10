@@ -15,6 +15,9 @@ $(document).ready(function(){
        case 'akun':
          $('#akun').addClass('active');
          break;
+       case 'kategori':
+         $('#kategori').addClass('active');
+         break;
        default:
          $('#dashboard').addClass('active');
          break;
@@ -74,6 +77,19 @@ $(document).ready(function(){
         }
        }
    }
+
+   $(document).on("click", ".btn-folder", function () {
+      var id = $(this).data('id');
+      var title = $(this).data('title');
+      var level = $(this).data('level');
+
+      $("#id").html(id);
+      $("#nama").val(title);
+
+      if(level == 1){
+        $("#delete").hide();
+      }
+   });
 
    setActiveMenu(getUrlParameter());
 });

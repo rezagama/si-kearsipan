@@ -74,8 +74,28 @@ Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
     'as' => 'admin.destroy'
   ]);
 
-  Route::get('/arsip/kategori', [
-      'uses' => 'KategoriArsipController@index',
+  Route::get('/kategori/arsip', [
+      'uses' => 'KategoriController@index',
       'as' => 'kategori.index'
+  ]);
+
+  Route::get('/kategori/arsip/folder/', [
+      'uses' => 'KategoriController@index',
+      'as' => 'kategori.index'
+  ]);
+
+  Route::get('/kategori/arsip/{id}/folder', [
+      'uses' => 'KategoriController@show',
+      'as' => 'kategori.show'
+  ]);
+
+  Route::post('/kategori/arsip/folder/store', [
+      'uses' => 'KategoriController@store',
+      'as' => 'kategori.store'
+  ]);
+
+  Route::post('/kategori/arsip/folder/hapus', [
+      'uses' => 'KategoriController@destroy',
+      'as' => 'kategori.hapus'
   ]);
 });

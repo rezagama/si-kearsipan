@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
-@section('title', 'Sistem Informasi Kearsipan / Akun / staff')
+@section('title', 'Sistem Informasi Kearsipan / Akun / Staff')
 
 @section('content')
 <div class="row v-spacing">
   <div class="col-sm-4 col-md-4 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Tambah staff
+        Tambah Staff
       </div>
       <form id="form" action="{{URL::route('staff.store')}}" method="POST" enctype="multipart/form-data">
         <div class="panel-body">
@@ -53,7 +53,7 @@
   <div class="col-sm-8 col-md-8 col-xs-12">
     <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
-                Daftar staff
+                Daftar Staff
         </div>
         <div class="panel-body">
             <div class="tab-content">

@@ -12,6 +12,6 @@ class AccountController extends Controller
   public function show($id){
     $user = User::where('id_user', $id)->first();
 
-    return view('pages.account.detail')->with('user', $user);
+    return view('pages.akun.detail')->with('user', $user);
   }
 }
