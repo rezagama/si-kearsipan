@@ -46,6 +46,31 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'uses' => 'StaffController@store',
     'as' => 'staff.store'
   ]);
+
+  Route::get('/arsip/browse/folder', [
+    'uses' => 'ArsipController@index',
+    'as' => 'arsip.index'
+  ]);
+
+  Route::get('/arsip/{id}/folder', [
+    'uses' => 'ArsipController@show',
+    'as' => 'arsip.show'
+  ]);
+
+  Route::get('/arsip/folder/{id}/dokumen', [
+    'uses' => 'ArsipController@dokumen',
+    'as' => 'arsip.dokumen'
+  ]);
+
+  Route::post('/arsip/folder/dokumen/store', [
+    'uses' => 'ArsipController@store',
+    'as' => 'arsip.store'
+  ]);
+
+  Route::get('/arsip/folder/dokumen/{id}/download', [
+    'uses' => 'ArsipController@download',
+    'as' => 'arsip.download'
+  ]);
 });
 
 Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
@@ -97,5 +122,10 @@ Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
   Route::post('/kategori/arsip/folder/hapus', [
       'uses' => 'KategoriController@destroy',
       'as' => 'kategori.hapus'
+  ]);
+
+  Route::delete('/arsip/folder/dokumen/{id}/hapus', [
+    'uses' => 'ArsipController@destroy',
+    'as' => 'arsip.hapus'
   ]);
 });

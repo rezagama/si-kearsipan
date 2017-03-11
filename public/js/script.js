@@ -12,6 +12,9 @@ $(document).ready(function(){
    function setActiveMenu(selectedMenu){
      removeSelectedMenu();
      switch (selectedMenu) {
+       case 'arsip':
+         $('#arsip').addClass('active');
+         break;
        case 'akun':
          $('#akun').addClass('active');
          break;
@@ -90,6 +93,14 @@ $(document).ready(function(){
         $("#delete").hide();
       }
    });
+
+   $(document).on("click", ".btn-back", function() {
+     window.history.back();
+   });
+
+   $('.datepicker').datepicker({
+    format: 'dd/mm/yyyy'
+});
 
    setActiveMenu(getUrlParameter());
 });

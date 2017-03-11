@@ -103,6 +103,12 @@ return [
         'email' => [
             'unique' => 'Email yang anda masukkan sudah digunakan.'
         ],
+        'no_arsip' => [
+            'unique' => 'Sudah terdapat dokumen dengan nomor arsip yang sama. Harap gunakan nomor arsip yang lain.'
+        ],
+        'dokumen' => [
+            'required' => 'File belum dipilih.'
+        ],
     ],
 
     /*

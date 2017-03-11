@@ -49,10 +49,11 @@
 					Daftar Arsip </a>
           <ul id="sub-menu-arsip" class="panel-collapse collapse">
             <li>
-              <a href=""><i class="fa fa-book"></i> Arsip Aktif</a>
-              <a href="#"><i class="fa fa-book"></i> Arsip Inaktif</a>
-              <a href=""><i class="fa fa-book"></i> Arsip Statis</a>
-              <a href="#"><i class="fa fa-book"></i> Arsip Dimusnahkan</a>
+              <a href="{{URL::route('arsip.index')}}"><i class="fa fa-book"></i> Semua Arsip</a>
+              <a href="{{URL::route('arsip.show', '584cd505aacbc75f09b0c10bc')}}"><i class="fa fa-book"></i> Arsip Aktif</a>
+              <a href="{{URL::route('arsip.show', 'e562a38dfd73d2cb742583047')}}"><i class="fa fa-book"></i> Arsip Inaktif</a>
+              <a href="{{URL::route('arsip.show', '56dfca5aebf1a93b0f7aa6401')}}"><i class="fa fa-book"></i> Arsip Statis</a>
+              <a href="{{URL::route('arsip.show', '1b0a9c6c14433ffc492bfa4a2')}}"><i class="fa fa-book"></i> Arsip Dimusnahkan</a>
             </li>
           </ul>
 				</li>
