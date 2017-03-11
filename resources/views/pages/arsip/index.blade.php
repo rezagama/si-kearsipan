@@ -1,0 +1,112 @@
+@extends('layouts.main')
+
+@section('title', $title)
+
+@section('content')
+<div class="row v-spacing">
+  <div class="col-sm-12 col-md-12 col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <button class="btn btn-warning btn-sm btn-circular btn-back"><i class="fa fa-arrow-left"></i></button> {{$panel}}
+      </div>
+      <div class="panel-body">
+        <div class="row list-group">
+          @if($count > 0)
+            @foreach ($arsip as $arsip)
+            <div class="item col-xs-4 col-lg-2 col-md-2">
+                <div class="thumbnail folder">
+                    <a href="{{URL::route('arsip.dokumen', $arsip->id_kategori)}}" class="btn btn-success btn-sm btn-folder-lg"><i class="fa fa-list"></i></a>
+                    <img class="group list-group-image" src="{{url('img/folder.png')}}" alt="{{$arsip->nama_kategori}}" />
+                    <div class="kategori">
+                        <a href="{{URL::route('arsip.show', $arsip->id_kategori)}}">{{$arsip->nama_kategori}}</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+          @else
+            <p align="center">Belum ada folder di kategori {{$panel}}</p>
+          @endif
+        </div>
+      </div>
+    </div>
+  <div>
+</div>
+@endsection
+@section('script')
+<!-- Datatables-->
+<script src="{{asset('js/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('js/datatables/dataTables.bootstrap.js')}}"></script>
+<script src="{{asset('js/datatables/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('js/datatables/buttons.bootstrap.min.js')}}"></script>
+<script src="{{asset('js/datatables/tableconfig.min.js')}}"></script>
+<script src="{{asset('js/datatables/pdfmake.min.js')}}"></script>
+<script src="{{asset('js/datatables/buttons.html5.min.js')}}"></script>
+<script src="{{asset('js/datatables/buttons.print.min.js')}}"></script>
+<script src="{{asset('js/datatables/dataTables.keyTable.min.js')}}"></script>
+<script src="{{asset('js/datatables/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('js/datatables/responsive.bootstrap.min.js')}}"></script>
+<script src="{{asset('js/datatables/dataTables.scroller.min.js')}}"></script>
+<script src="{{asset('js/parsley.js')}}"></script>
+<script src="{{asset('js/script.js')}}"></script>
+<!-- Datatables-->
+
+<script>
+  var handleDataTableButtons = function() {
+      "use strict";
+      0 !== $(".data-table").length && $(".data-table").DataTable({
+        dom: "Bfrtip",
+        buttons: [{
+          extend: "copy",
+          className: "btn-sm"
+        }, {
+          extend: "csv",
+          className: "btn-sm"
+        }, {
+          extend: "excel",
+          className: "btn-sm"
+        },
+        // {
+        //   extend: "pdf",
+        //   className: "btn-sm"
+        // },
+        {
+          extend: "print",
+          className: "btn-sm"
+        }],
+        responsive: !0
+      })
+    },
+    TableManageButtons = function() {
+      "use strict";
+      return {
+        init: function() {
+          handleDataTableButtons()
+        }
+      }
+    }();
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    //$('#dokumensiklus').find("table").dataTable();
+    $('#datatable-keytable').DataTable({
+      keys: true
+    });
+    $('#datatable-responsive').DataTable();
+    $('#datatable-scroller').DataTable({
+      ajax: "js/datatables/json/scroller-demo.json",
+      deferRender: true,
+      scrollY: 380,
+      scrollCollapse: true,
+      scroller: true
+    });
+    var table = $('#datatable-fixed-header').DataTable({
+      fixedHeader: false
+    });
+  });
+  TableManageButtons.init();
+</script>
+
+<script type="text/javascript">
+  $('#form').parsley();
+</script>
+@endsection

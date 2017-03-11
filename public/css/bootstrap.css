@@ -5052,7 +5052,7 @@ a.thumbnail.active {
 .alert-dismissable .close,
 .alert-dismissible .close {
   position: relative;
-  top: 5px;
+  top: -3px;
   right: -21px;
   color: inherit;
 }

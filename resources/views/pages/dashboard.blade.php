@@ -105,6 +105,7 @@
               <th class="th-center">No.</th>
               <th>Judul Arsip</th>
               <th class="th-center">Diakses</th>
+              <th class="th-center">Diunduh<th>
             </tr>
           </thead>
           <tbody class>
@@ -112,26 +113,31 @@
               <td align="center">1.</td>
               <td><i class="fa fa-book"></i> Arsip A</td>
               <td align="center">197 kali</td>
+              <td align="center">97 kali</td>
             </tr>
             <tr>
               <td align="center">2.</td>
               <td><i class="fa fa-book"></i> Arsip B</td>
               <td align="center">102 kali</td>
+              <td align="center">67 kali</td>
             </tr>
             <tr>
               <td align="center">3.</td>
               <td><i class="fa fa-book"></i> Arsip C</td>
               <td align="center">92 kali</td>
+              <td align="center">45 kali</td>
             </tr>
             <tr>
               <td align="center">4.</td>
               <td><i class="fa fa-book"></i> Arsip D</td>
               <td align="center">72 kali</td>
+              <td align="center">27 kali</td>
             </tr>
             <tr>
               <td align="center">5.</td>
               <td><i class="fa fa-book"></i> Arsip E</td>
               <td align="center">52 kali</td>
+              <td align="center">17 kali</td>
             </tr>
           </tbody>
         </table>

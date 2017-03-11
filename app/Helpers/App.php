@@ -4,6 +4,7 @@
    */
   namespace App\Helpers;
   use App\Helpers\App;
+  use App\Kategori;
   use Session;
   use Redirect;
   use View;
@@ -106,12 +107,45 @@
       return $val;
     }
 
+    public static function getDocumentStatus($folder){
+      $parent = $folder->parent;
+      $status = $folder->nama_kategori;
+
+      while ($parent != null) {
+        $parent = Kategori::where('id_kategori', $parent)->first();
+        $status = $parent->nama_kategori;
+        $parent = $parent->parent;
+      }
+
+      switch ($status) {
+        case 'Arsip Aktif':
+          return 1;
+          break;
+        case 'Arsip Inaktif':
+          return 2;
+          break;
+        case 'Arsip Statis':
+          return 3;
+          break;
+        default:
+          return 0;
+          break;
+      }
+    }
+
     public static function deleteUser($user){
       $isSuccess = false;
       if(File::exists($user->foto)){
         $isSuccess = App::deleteProfile($user);
       }
       return $isSuccess;
+    }
+
+    public static function deleteArsip($arsip){
+      if(File::exists($arsip->file)){
+        File::delete($arsip->file);
+      }
+      return $arsip->delete();
     }
 
     private static function deleteProfile($user){
@@ -129,6 +163,11 @@
     public static function formatDate($date){
       $dateTime = date_create($date);
       return date_format($dateTime, "d/m/Y");
+    }
+
+    public static function dbFormatDate($date){
+      $dateTime = date_create(strtotime($date));
+      return date_format($dateTime, "Y/m/d");
     }
 
     public static function getTodaysDateTime(){
