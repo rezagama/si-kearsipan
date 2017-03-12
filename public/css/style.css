@@ -654,6 +654,11 @@ hr {
   z-index: 100;
 }
 
+.breadcrumb-ic{
+  color: #f8c63d;
+  margin-right: 5px;
+}
+
 .btn-circular{
   border-radius: 50%;
   min-width: 30px;
@@ -667,4 +672,13 @@ hr {
 
 .dataTables_empty{
   text-align: center;
+}
+
+.breadcrumb li a{
+  color: #f8c63d;
+  cursor: pointer;
+}
+
+.breadcrumb li a.active{
+  color: #fff;
 }
