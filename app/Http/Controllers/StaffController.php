@@ -14,7 +14,7 @@ class StaffController extends Controller
 {
   public function index(){
     $staff = User::where('level', 1)->orderBy('created_at', 'DESC')->get();
-    return view('pages.account.staff.index')->with('staff', $staff);
+    return view('pages.akun.staff.index')->with('staff', $staff);
   }
 
   public function store(Request $request){

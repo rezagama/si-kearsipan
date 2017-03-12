@@ -3,6 +3,21 @@
 @section('title', $title)
 
 @section('content')
+<ol class="breadcrumb v-spacing">
+  <i class="fa fa-sitemap breadcrumb-ic"></i> <li><a href="{{URL::route('dashboard.index')}}">Dashboard</a></li>
+  @if(isset($path))
+  <li><a href="{{URL::route('kategori.index')}}">Kategori Arsip</a></li>
+    @for ($i = $size; $i >= 0; $i--)
+      @if($i == 0)
+        <li><a href="{{$path[$i]['url']}}" class="active">{{$path[$i]['title']}}</a></li>
+      @else
+        <li><a href="{{$path[$i]['url']}}">{{$path[$i]['title']}}</a></li>
+      @endif
+    @endfor
+  @else
+    <li><a class="active" href="{{URL::route('kategori.index')}}">Kategori Arsip</a></li>
+  @endif
+</ol>
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -62,7 +77,9 @@
             @foreach ($kategori as $kategori)
             <div class="item col-xs-4 col-lg-2 col-md-2">
                 <div class="thumbnail folder">
-                    <a data-toggle="modal" href="#edit" data-id="{{$kategori->id_kategori}}" data-title="{{$kategori->nama_kategori}}" data-level="{{$kategori->level_kategori}}" class="btn btn-primary btn-sm btn-folder"><i class="fa fa-edit"></i></a>
+                    @if($kategori->level_kategori != 1)
+                      <a data-toggle="modal" href="#edit" data-id="{{$kategori->id_kategori}}" data-title="{{$kategori->nama_kategori}}" data-level="{{$kategori->level_kategori}}" class="btn btn-primary btn-sm btn-folder"><i class="fa fa-edit"></i></a>
+                    @endif
                     <img class="group list-group-image" src="{{url('img/folder.png')}}" alt="{{$kategori->nama_kategori}}" />
                     <div class="kategori">
                         <a href="{{URL::route('kategori.show', $kategori->id_kategori)}}">{{$kategori->nama_kategori}}</a>

@@ -19,7 +19,7 @@ class ArsipController extends Controller
   public function index(){
     $arsip = Kategori::where('parent', null)->get();
     $count = Kategori::where('parent', null)->count();
-    $title = 'Sistem Informasi Kearsipan / Semua Arsip';
+    $title = 'Sistem Informasi Kearsipan / Daftar Arsip';
     return view('pages.arsip.index')->with('arsip', $arsip)
                 ->with('panel', 'Daftar Arsip')
                 ->with('title', $title)
@@ -31,8 +31,12 @@ class ArsipController extends Controller
     $arsip = Kategori::where('parent', $id)->get();
     $count = Kategori::where('parent', $id)->count();
     $folder = Kategori::where('id_kategori', $id)->first();
+    $path  = App::getDocumentPath($folder);
+    $size = App::getPathCount($path);
+
     $title = 'Sistem Informasi Kearsipan / Arsip / '.$folder->nama_kategori;
     return view('pages.arsip.index')->with('arsip', $arsip)
+                ->with('path', $path)->with('size', $size)
                 ->with('panel', $folder->nama_kategori)
                 ->with('title', $title)
                 ->with('count', $count)
@@ -93,9 +97,12 @@ class ArsipController extends Controller
             ->get();
     $kategori = Kategori::where('parent', $id)->get();
     $folder = Kategori::where('id_kategori', $id)->first();
+    $path  = App::getDocumentPath($folder);
+    $size = App::getPathCount($path);
 
     $title = 'Sistem Informasi Kearsipan / Arsip / '.$folder->nama_kategori;
     return view('pages.arsip.dokumen')->with('arsip', $arsip)->with('kategori', $kategori)
+                ->with('path', $path)->with('size', $size)
                 ->with('folder', $folder)
                 ->with('title', $title)
                 ->with('id', $id);

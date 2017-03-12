@@ -27,8 +27,11 @@ class KategoriController extends Controller
       $kategori = Kategori::where('parent', $id)->get();
       $count = Kategori::where('parent', $id)->count();
       $folder = Kategori::where('id_kategori', $id)->first();
+      $path  = App::getDocumentPath($folder);
+      $size = App::getPathCount($path);
       $title = 'Sistem Informasi Kearsipan / Kategori Arsip / '.$folder->nama_kategori;
       return view('pages.kategori.index')->with('kategori', $kategori)
+                  ->with('path', $path)->with('size', $size)
                   ->with('panel', $folder->nama_kategori)
                   ->with('title', $title)
                   ->with('count', $count)

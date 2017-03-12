@@ -7,6 +7,21 @@
 @endsection
 
 @section('content')
+<ol class="breadcrumb v-spacing">
+  <i class="fa fa-sitemap breadcrumb-ic"></i> <li><a href="{{URL::route('dashboard.index')}}">Dashboard</a></li>
+  @if(isset($path))
+  <li><a href="{{URL::route('arsip.index')}}">Daftar Arsip</a></li>
+    @for ($i = $size; $i >= 0; $i--)
+      @if($i == 0)
+        <li><a href="{{$path[$i]['url']}}" class="active">{{$path[$i]['title']}}</a></li>
+      @else
+        <li><a href="{{$path[$i]['url']}}">{{$path[$i]['title']}}</a></li>
+      @endif
+    @endfor
+  @else
+    <li><a class="active" href="{{URL::route('arsip.index')}}">Daftar Arsip</a></li>
+  @endif
+</ol>
 <div class="row v-spacing">
   <div class="col-sm-4 col-md-4 col-xs-12">
     <div class="panel panel-default">
@@ -72,7 +87,7 @@
   <div class="col-sm-8 col-md-8 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <button class="btn btn-warning btn-sm btn-circular btn-back"><i class="fa fa-arrow-left"></i></button> {{$folder->nama_kategori}}
+        {{$folder->nama_kategori}}
       </div>
       <div class="panel-body">
         <table class="table table-hover data-table">
@@ -134,6 +149,7 @@
 <script src="{{asset('js/parsley.js')}}"></script>
 <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('js/script.js')}}"></script>
+<script src="{{asset('js/picker.js')}}"></script>
 <!-- Datatables-->
 
 <script>

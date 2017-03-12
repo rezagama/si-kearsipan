@@ -98,9 +98,5 @@ $(document).ready(function(){
      window.history.back();
    });
 
-   $('.datepicker').datepicker({
-    format: 'dd/mm/yyyy'
-});
-
    setActiveMenu(getUrlParameter());
 });

@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'as' => 'staff.store'
   ]);
 
-  Route::get('/arsip/browse/folder', [
+  Route::get('/arsip/folder', [
     'uses' => 'ArsipController@index',
     'as' => 'arsip.index'
   ]);

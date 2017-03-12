@@ -9,6 +9,7 @@
   use Redirect;
   use View;
   use File;
+  use URL;
 
   class App
   {
@@ -131,6 +132,41 @@
           return 0;
           break;
       }
+    }
+
+    public static function getDocumentPath($folder){
+      $path = array();
+      $parent = $folder->parent;
+
+      $data = array(
+        'title' => $folder->nama_kategori,
+        'url' => URL::route('arsip.show', $folder->id_kategori)
+      );
+
+      array_push($path, $data);
+
+      while ($parent != null) {
+        $parent = Kategori::where('id_kategori', $parent)->first();
+
+        $data = array(
+          'title' => $parent->nama_kategori,
+          'url' => URL::route('arsip.show', $parent->id_kategori)
+        );
+
+        array_push($path, $data);
+
+        $parent = $parent->parent;
+      }
+
+      return $path;
+    }
+
+    public static function getPathCount($path){
+      $i = 0;
+      foreach ($path as $key => $value) {
+        $i++;
+      }
+      return $i - 1;
     }
 
     public static function deleteUser($user){
