@@ -161,6 +161,33 @@
       return $path;
     }
 
+    public static function getArchivePath($folder){
+      $path = array();
+      $parent = $folder->parent;
+
+      $data = array(
+        'title' => $folder->nama_kategori,
+        'url' => $folder->id_kategori
+      );
+
+      array_push($path, $data);
+
+      while ($parent != null) {
+        $parent = Kategori::where('id_kategori', $parent)->first();
+
+        $data = array(
+          'title' => $parent->nama_kategori,
+          'url' => $parent->id_kategori
+        );
+
+        array_push($path, $data);
+
+        $parent = $parent->parent;
+      }
+
+      return $path;
+    }
+
     public static function getPathCount($path){
       $i = 0;
       foreach ($path as $key => $value) {

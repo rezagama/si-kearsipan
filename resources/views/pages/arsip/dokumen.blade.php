@@ -13,9 +13,9 @@
   <li><a href="{{URL::route('arsip.index')}}">Daftar Arsip</a></li>
     @for ($i = $size; $i >= 0; $i--)
       @if($i == 0)
-        <li><a href="{{$path[$i]['url']}}" class="active">{{$path[$i]['title']}}</a></li>
+        <li><a href="{{URL::route('arsip.dokumen', $path[$i]['url'])}}" class="active">{{$path[$i]['title']}}</a></li>
       @else
-        <li><a href="{{$path[$i]['url']}}">{{$path[$i]['title']}}</a></li>
+        <li><a href="{{URL::route('arsip.show', $path[$i]['url'])}}">{{$path[$i]['title']}}</a></li>
       @endif
     @endfor
   @else
@@ -119,7 +119,7 @@
                     </form>
                     @endif
                     <a href="{{URL::route('arsip.download', $arsip->id_arsip)}}" class="btn btn-info btn-sm btn-sm-spacing" target="_blank"><i class="fa fa-cloud-download"></i></a>
-                    <a href="" type="button" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-chevron-right"></i></a>
+                    <a href="{{URL::route('arsip.detail', $arsip->id_arsip)}}" type="button" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-chevron-right"></i></a>
                   </td>
                 </tr>
               @endforeach
@@ -167,10 +167,10 @@
           extend: "excel",
           className: "btn-sm"
         },
-        // {
-        //   extend: "pdf",
-        //   className: "btn-sm"
-        // },
+        {
+          extend: "pdf",
+          className: "btn-sm"
+        },
         {
           extend: "print",
           className: "btn-sm"
@@ -189,7 +189,6 @@
 </script>
 <script type="text/javascript">
   $(document).ready(function() {
-    //$('#dokumensiklus').find("table").dataTable();
     $('#datatable-keytable').DataTable({
       keys: true
     });
