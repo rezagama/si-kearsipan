@@ -201,7 +201,11 @@ body{
   color: #fff;
   font-size: 12px;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+}
+
+.th-md{
+  min-width: 115px;
 }
 
 .buttons {
@@ -681,4 +685,8 @@ hr {
 
 .breadcrumb li a.active{
   color: #fff;
+}
+
+.btn-sm > .fa-bell{
+  font-size: 14px
 }

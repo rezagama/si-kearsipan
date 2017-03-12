@@ -34,7 +34,7 @@ class ArsipController extends Controller
     $path  = App::getDocumentPath($folder);
     $size = App::getPathCount($path);
 
-    $title = 'Sistem Informasi Kearsipan / Arsip / '.$folder->nama_kategori;
+    $title = 'Sistem Informasi Kearsipan / Daftar Arsip / '.$folder->nama_kategori;
     return view('pages.arsip.index')->with('arsip', $arsip)
                 ->with('path', $path)->with('size', $size)
                 ->with('panel', $folder->nama_kategori)
@@ -97,7 +97,7 @@ class ArsipController extends Controller
             ->get();
     $kategori = Kategori::where('parent', $id)->get();
     $folder = Kategori::where('id_kategori', $id)->first();
-    $path  = App::getDocumentPath($folder);
+    $path  = App::getArchivePath($folder);
     $size = App::getPathCount($path);
 
     $title = 'Sistem Informasi Kearsipan / Arsip / '.$folder->nama_kategori;
@@ -106,6 +106,30 @@ class ArsipController extends Controller
                 ->with('folder', $folder)
                 ->with('title', $title)
                 ->with('id', $id);
+  }
+
+  public function detail($id){
+    $arsip = DB::table('t_arsip')
+            ->where('id_arsip', $id)
+            ->join('t_akun', 't_arsip.id_user', '=', 't_akun.id_user')
+            ->join('t_kategori', 't_arsip.id_kategori', '=', 't_kategori.id_kategori')
+            ->select('t_arsip.*', 't_akun.nama', 't_akun.id_user', 't_kategori.nama_kategori')
+            ->first();
+    $log = DB::table('t_riwayat')
+            ->where('id_arsip', $id)
+            ->join('t_log', 't_riwayat.id_log', '=', 't_log.id_log')
+            ->join('t_akun', 't_log.id_user', '=', 't_akun.id_user')
+            ->select('t_log.*', 't_akun.foto')
+            ->get();
+    $kategori = Kategori::where('parent', $id)->get();
+    $folder = Kategori::where('id_kategori', $arsip->id_kategori)->first();
+    $path  = App::getArchivePath($folder);
+    $size = App::getPathCount($path);
+
+    return view('pages.arsip.detail')->with('arsip', $arsip)
+                ->with('log', $log)
+                ->with('path', $path)
+                ->with('size', $size);
   }
 
   public function download($id){

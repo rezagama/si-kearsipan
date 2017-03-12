@@ -11,6 +11,9 @@
 			<div class="username">
 				{{Auth::user()->nama}}
 			</div>
+      <div class="title">
+				{{Auth::user()->nip}}
+			</div>
 			<div class="title">
 				@if(Auth::user()->level == 0)
           Admin
@@ -21,7 +24,7 @@
 		</div>
 		<div class="buttons">
 			<button type="button" class="btn btn-success btn-sm">Profil</button>
-			<button type="button" class="btn btn-danger btn-sm">Logout</button>
+			<button type="button" class="btn btn-info btn-sm"><i class="fa fa-bell"></i> <span class="badge">0</span></button>
 		</div>
 		<div class="main-menu">
 			<ul class="nav">

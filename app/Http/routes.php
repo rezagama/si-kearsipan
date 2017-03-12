@@ -71,6 +71,11 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'uses' => 'ArsipController@download',
     'as' => 'arsip.download'
   ]);
+
+  Route::get('/arsip/folder/dokumen/{id}/detail', [
+    'uses' => 'ArsipController@detail',
+    'as' => 'arsip.detail'
+  ]);
 });
 
 Route::group(['middleware' => ['auth', 'admin', 'status']], function () {

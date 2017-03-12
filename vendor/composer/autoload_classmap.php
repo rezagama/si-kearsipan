@@ -518,6 +518,7 @@ return array(
     'TLog' => $baseDir . '/database/migrations/2017_03_03_141728_t_log.php',
     'TPemberitahuan' => $baseDir . '/database/migrations/2017_03_03_141714_t_pemberitahuan.php',
     'TPesan' => $baseDir . '/database/migrations/2017_03_03_141658_t_pesan.php',
+    'TRiwayat' => $baseDir . '/database/migrations/2017_03_12_101932_t_riwayat.php',
     'TStatistik' => $baseDir . '/database/migrations/2017_03_03_141721_t_statistik.php',
     'TUser' => $baseDir . '/database/migrations/2017_03_03_141631_t_user.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
