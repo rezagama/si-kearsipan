@@ -86,8 +86,10 @@ $(document).ready(function(){
       var title = $(this).data('title');
       var level = $(this).data('level');
 
-      $("#id").html(id);
+      $("#id").val(id);
       $("#nama").val(title);
+      $(".update #id").val(id)
+      $(".update #kategori").val(title)
 
       if(level == 1){
         $("#delete").hide();
