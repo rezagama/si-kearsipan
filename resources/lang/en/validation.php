@@ -109,6 +109,9 @@ return [
         'dokumen' => [
             'required' => 'File belum dipilih.'
         ],
+        'kategori' => [
+            'required' => 'Kategori belum diisi.'
+        ],
     ],
 
     /*

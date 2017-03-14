@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Redirect;
+use Validator;
 use App\Http\Requests;
 use App\Helpers\App;
 use App\Kategori;
@@ -55,17 +56,68 @@ class KategoriController extends Controller
         $kategori->id_kategori = App::generateUniqueID();
         $kategori->parent = App::isValueNull($parent);
         $kategori->tipe_kategori = App::getCategoryType($parent);
+        $kategori->root = App::getArchiveRootId($kategori);
         $kategori->nama_kategori = $folder;
 
         if($kategori->save()){
-          return Redirect::back()->with('info', $folder. ' berhasil ditambahkan.');
+          return Redirect::back()->with('info', 'Kategori '.$folder.' berhasil ditambahkan ke dalam folder '.App::getArchiveRoot($kategori).'.');
         } else {
           return Redirect::back()->with('error', 'Terjadi kesalahan pada sistem. Harap coba beberapa saat lagi.');
         }
       }
     }
 
-    public function destroy(Request $request){
+    public function update(Request $request){
+      $id = $request->input('id');
+      $folder = $request->input('kategori');
+      $parent = $request->input('parent');
+      $kategori = Kategori::where('id_kategori', $id)->first();
 
+      if($kategori){
+        $v = Validator::make($request->all(), [
+          'kategori' => 'required'
+        ]);
+
+        if($v->fails()){
+          return Redirect::back()->with('error', $v->errors()->all()[0]);
+        } else {
+          if($kategori->nama_kategori != $folder){
+            $archive = Kategori::where('nama_kategori', $folder)
+                                ->where('parent', $parent)->first();
+
+            if($archive){
+              if($parent == null) {
+                return Redirect::back()->with('error', 'Kategori dengan nama '.$folder.' sudah tersedia.');
+              } else {
+                return Redirect::back()->with('error', 'Kategori dengan nama '.$folder.' sudah tersedia di dalam folder '.App::getArchiveRoot($kategori).'.');
+              }
+            }
+          }
+
+          $kategori->nama_kategori = $folder;
+
+          if($kategori->save()){
+            return Redirect::back()->with('info', 'Perubahan pada folder berhasil disimpan.');
+          } else {
+            return Redirect::back()->with('error', 'Terjadi kesalahan pada sistem. Harap coba beberapa saat lagi.');
+          }
+        }
+      } else {
+        return Redirect::back()->with('error', 'Kategori tidak ditemukan.');
+      }
+    }
+
+    public function destroy(Request $request){
+      $id = $request->input('id');
+      $kategori = Kategori::where('id_kategori', $id)->first();
+      if($kategori){
+        if(App::removeCategory($kategori)){
+          return Redirect::back()->with('info', 'Kategori '.$kategori->nama_kategori.' berhasil dihapus.');
+        } else {
+          return Redirect::back()->with('error', 'Terjadi kesalahan pada sistem. Harap coba beberapa saat lagi.');
+        }
+      } else {
+        return Redirect::back()->with('error', 'Kategori tidak ditemukan.');
+      }
     }
 }

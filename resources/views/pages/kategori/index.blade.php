@@ -38,13 +38,19 @@
           <input type="hidden" name="id" id="id"></input>
           <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button>
         </form>
-        <button type="button" class="btn btn-success"><i class="fa fa-check"></i> Simpan</button>
+        <form action="{{URL::route('kategori.update')}}" class="inline update" method="POST">
+          <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+          <input type="hidden" name="id" id="id"></input>
+          <input type="hidden" name="kategori" id="kategori"</input>
+          <input type="hidden" name="parent" id="parent" value="{{$id}}"></input>
+          <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Simpan</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 <div class="row v-spacing">
-  <div class="col-sm-3 col-md-3 col-xs-12">
+  <div class="col-sm-6 col-md-3 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
         Kelola Kategori
@@ -66,7 +72,7 @@
       </form>
     </div>
   </div>
-  <div class="col-sm-9 col-md-9 col-xs-12">
+  <div class="col-sm-6 col-md-9 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
         {{$panel}}
@@ -110,6 +116,7 @@
 <script src="{{asset('js/datatables/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('js/datatables/responsive.bootstrap.min.js')}}"></script>
 <script src="{{asset('js/datatables/dataTables.scroller.min.js')}}"></script>
+<script src="{{asset('js/arsip/edit.js')}}"></script>
 <script src="{{asset('js/parsley.js')}}"></script>
 <script src="{{asset('js/script.js')}}"></script>
 <!-- Datatables-->
