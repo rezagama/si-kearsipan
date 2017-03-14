@@ -582,6 +582,10 @@ body{
   margin-top: 20px
 }
 
+.spacing-md{
+  margin-top: 10px !important
+}
+
 .no-spacing{
   margin: 0;
   padding: 0;
@@ -635,7 +639,7 @@ hr {
 }
 
 .btn-folder{
-  top: 10px;
+  top: 25px;
   right: 50px;
   padding: 5px;
   min-width: 27px;
@@ -647,7 +651,7 @@ hr {
 }
 
 .btn-folder-lg{
-  top: 16px;
+  top: 30px;
   right: 65px;
   padding: 5px;
   min-width: 27px;
@@ -689,4 +693,8 @@ hr {
 
 .btn-sm > .fa-bell{
   font-size: 14px
+}
+
+.btn-panel-heading{
+  margin-top: -3px
 }
