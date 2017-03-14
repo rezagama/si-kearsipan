@@ -5,6 +5,7 @@
   namespace App\Helpers;
   use App\Helpers\App;
   use App\Kategori;
+  use App\Arsip;
   use Session;
   use Redirect;
   use View;
@@ -312,6 +313,26 @@
       }
 
       return $parent;
+    }
+
+    public static function removeCategory($kategori){
+      $delete = FALSE;
+      $archive = Kategori::where('id_kategori', $kategori->id_kategori)->first();
+
+      while($archive){
+        $arsip = Arsip::where('id_kategori', $archive->id_kategori)->get();
+        foreach ($arsip as $key => $data) {
+          App::deleteArsip($data);
+        }
+        $archive = Kategori::where('parent', $archive->id_kategori)->first();
+      }
+
+      while ($kategori) {
+        $delete = $kategori->delete();
+        $kategori = Kategori::where('parent', $kategori->id_kategori)->first();
+      }
+
+      return $delete;
     }
 
     public static function getPathCount($path){
