@@ -3,7 +3,6 @@
   <head>
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title')</title>
   <link href="{{url('css/bootstrap.css')}}" rel="stylesheet"/>
   <link href="{{url('css/font-awesome.min.css')}}" rel="stylesheet"/>
