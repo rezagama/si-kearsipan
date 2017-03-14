@@ -23,7 +23,7 @@
   <div class="col-md-4 col-sm-4 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Detail Arsip
+        Detail Arsip <a href="{{URL::route('arsip.edit', $arsip->id_arsip)}}" class="btn btn-warning btn-sm btn-panel-heading pull-right"><i class="fa fa-edit"></i></a>
       </div>
       <div class="panel-body">
         <div class="container-fluid no-spacing">
@@ -46,7 +46,7 @@
             <p>
               <a href="{{URL::route('account.show', $arsip->id_user)}}">{{$arsip->nama}}</a>
             </p>
-            <label>Kategori Arsip</label>
+            <label>Folder</label>
             <p>{{$arsip->nama_kategori}}</p>
             <label>Ditambahkan Pada</label>
             <p>{{date('D, d M Y', strtotime($arsip->created_at))}}</p>
@@ -60,7 +60,7 @@
                 {{$arsip->deskripsi}}
               @endif
             </p>
-            <label>Jenis Arsip</label>
+            <label>Kategori Arsip</label>
             <p>
               @if($arsip->status == 0)
                 <span class="label label-danger inline">Arsip Dimusnahkan</span>
@@ -68,8 +68,10 @@
                 <span class="label label-success inline">Arsip Aktif</span>
               @elseif($arsip->status == 2)
                 <span class="label label-primary inline">Arsip Inaktif</span>
-              @else
+              @elseif($arsip->status == 3)
                 <span class="label label-info inline">Arsip Statis</span>
+              @else
+                <span class="label label-warning inline">Arsip Lain-lain</span>
               @endif
             </p>
           </div>
@@ -98,11 +100,11 @@
                     @foreach($log as $log)
                     <tr>
                       <td>
-                        <p class="v-spacing"><i class="fa fa-calendar"></i> {{date('d/M/Y', strtotime($log->created_at))}}</p>
-                        <p><i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
+                        <img src="{{url($log->foto)}}" class="avatar-xs" alt="{{$log->deskripsi}}">
                       </td>
                       <td>
-                        <img src="{{url($log->foto)}}" class="avatar-xs" alt="{{$log->deskripsi}}"> {{$log->deskripsi}}
+                        {{$log->deskripsi}}
+                        <p class="no-spacing"><i class="fa fa-calendar"></i> {{date('d/M/Y', strtotime($log->created_at))}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
                       </td>
                       <td><i class="fa fa-clock-o"></i> 5 menit yang lalu</td>
                     </tr>

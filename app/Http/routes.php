@@ -76,6 +76,16 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'uses' => 'ArsipController@detail',
     'as' => 'arsip.detail'
   ]);
+
+  Route::get('/arsip/folder/dokumen/{id}/edit', [
+    'uses' => 'ArsipController@edit',
+    'as' => 'arsip.edit'
+  ]);
+
+  Route::post('/arsip/folder/dokumen/{id}/update', [
+    'uses' => 'ArsipController@update',
+    'as' => 'arsip.update'
+  ]);
 });
 
 Route::group(['middleware' => ['auth', 'admin', 'status']], function () {

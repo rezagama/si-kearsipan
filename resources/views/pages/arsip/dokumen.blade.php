@@ -4,6 +4,7 @@
 
 @section('css')
   <link href="{{url('css/bootstrap-datepicker.css')}}" rel="stylesheet"/>
+  <link href="{{url('css/picker/picker-default.css')}}" rel="stylesheet"/>
 @endsection
 
 @section('content')
@@ -119,6 +120,7 @@
                     </form>
                     @endif
                     <a href="{{URL::route('arsip.download', $arsip->id_arsip)}}" class="btn btn-info btn-sm btn-sm-spacing" target="_blank"><i class="fa fa-cloud-download"></i></a>
+                    <a href="{{URL::route('arsip.edit', $arsip->id_arsip)}}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-edit"></i></a>
                     <a href="{{URL::route('arsip.detail', $arsip->id_arsip)}}" type="button" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-chevron-right"></i></a>
                   </td>
                 </tr>

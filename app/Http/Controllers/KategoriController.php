@@ -40,17 +40,28 @@ class KategoriController extends Controller
 
     public function store(Request $request){
       $folder = $request->input('nama');
-      $parent = $request->input('parent');
+      $parent = $parent = App::isValueNull($request->input('parent'));
 
-      $kategori = new Kategori;
-      $kategori->id_kategori = App::generateUniqueID();
-      $kategori->parent = App::isValueNull($parent);
-      $kategori->nama_kategori = $folder;
+      $kategori = Kategori::where('nama_kategori', $folder)->where('parent', $parent)->first();
 
-      if($kategori->save()){
-        return Redirect::back()->with('info', $folder. ' berhasil ditambahkan.');
+      if($kategori){
+        if($parent == null) {
+          return Redirect::back()->with('error', 'Kategori dengan nama '.$folder.' sudah tersedia.');
+        } else {
+          return Redirect::back()->with('error', 'Kategori dengan nama '.$folder.' sudah tersedia di dalam folder '.App::getArchiveRoot($kategori).'.');
+        }
       } else {
-        return Redirect::back()->with('error', 'Terjadi kesalahan pada sistem. Harap coba beberapa saat lagi.');
+        $kategori = new Kategori;
+        $kategori->id_kategori = App::generateUniqueID();
+        $kategori->parent = App::isValueNull($parent);
+        $kategori->tipe_kategori = App::getCategoryType($parent);
+        $kategori->nama_kategori = $folder;
+
+        if($kategori->save()){
+          return Redirect::back()->with('info', $folder. ' berhasil ditambahkan.');
+        } else {
+          return Redirect::back()->with('error', 'Terjadi kesalahan pada sistem. Harap coba beberapa saat lagi.');
+        }
       }
     }
 

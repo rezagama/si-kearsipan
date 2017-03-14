@@ -128,8 +128,11 @@
         case 'Arsip Statis':
           return 3;
           break;
-        default:
+        case 'Arsip Dimusnahkan':
           return 0;
+          break;
+        default:
+          return 4;
           break;
       }
     }
@@ -188,6 +191,131 @@
       return $path;
     }
 
+    public static function getArchiveRoot($folder){
+      $root = $folder->nama_kategori;
+      $parent = $folder->parent;
+
+      while ($parent != null) {
+        $parent = Kategori::where('id_kategori', $parent)->first();
+        $root = $parent->nama_kategori;
+        $parent = $parent->parent;
+      }
+
+      return $root;
+    }
+
+    public static function getArchiveRootId($folder){
+      $root = $folder->id_kategori;
+      $parent = $folder->parent;
+
+      while ($parent != null) {
+        $parent = Kategori::where('id_kategori', $parent)->first();
+        $root = $parent->id_kategori;
+        $parent = $parent->parent;
+      }
+
+      return $root;
+    }
+
+    public static function getArchiveRootType($folder){
+      $root = $folder->tipe_kategori;
+      $parent = $folder->parent;
+
+      while ($parent != null) {
+        $parent = Kategori::where('id_kategori', $parent)->first();
+        $root = $parent->tipe_kategori;
+        $parent = $parent->parent;
+      }
+
+      return $root;
+    }
+
+    public static function copyArchiveFolder($folder, $root){
+      $status = $root->tipe_kategori;
+      $parent = $folder->parent;
+      $id = App::generateUniqueID();
+      $archive = App::getArchiveRoot($folder);
+      $kategori = Kategori::where('nama_kategori', $folder->nama_kategori)
+                                ->where('root', $root->id_kategori)->first();
+
+      if(!$kategori){
+        $kategori = new Kategori;
+        $kategori->id_kategori = $id;
+        $kategori->nama_kategori = $folder->nama_kategori;
+        $kategori->tipe_kategori = $status;
+        $kategori->root = $root->id_kategori;
+        $kategori->save();
+      } else {
+        $id = $kategori->id_kategori;
+      }
+
+      while ($parent != null) {
+        $parent = Kategori::where('id_kategori', $parent)->first();
+        $name = $parent->nama_kategori;
+
+        if($name != $archive){
+          $kategori = Kategori::where('nama_kategori', $name)
+                                  ->where('root', $root->id_kategori)->first();
+          if(!$kategori){
+            $kategori = new Kategori;
+            $kategori->id_kategori = App::generateUniqueID();
+            $kategori->nama_kategori = $name;
+            $kategori->tipe_kategori = $status;
+            $kategori->root = $root->id_kategori;
+            $kategori->save();
+          }
+        }
+
+        $parent = $parent->parent;
+      }
+      App::setFolderParent($folder, $root);
+      return $id;
+    }
+
+    public static function setFolderParent($folder, $root){ //status 4
+      //Misal mindahin dari arsip aktif ke arsip x dengan tipe_kategori 4, ada arsip lain juga arsip y, tipe_kategori 4
+      //Sekarang ada di folder Sub A, subfoldernya Tes, parent nya arsip aktif
+      $status = $root->tipe_kategori;
+      $parent = $folder->parent; // ini berarti pertama ada di id_kategori nya Sub A
+      $archive = App::getArchiveRoot($folder); // nama kategori origin Arsip Aktif
+      $kategori = Kategori::where('nama_kategori', $folder->nama_kategori)
+                              ->where('root', $root->id_kategori)->first(); // berarti ini liat arsip dengan nama Tes dengan tipe_kategori 4
+
+      while ($parent != null) { //trs parentnya masih ada, sekarang parent ada di id_kategori Sub A
+        $parent = Kategori::where('id_kategori', $parent)->first(); //ini folder Sub A
+        $name = $parent->nama_kategori; // brarti namanya sub A
+
+        if($name != $archive){ //sub A != arsip aktif, bener
+          $parents = Kategori::where('nama_kategori', $name)
+                                ->where('root', $root->id_kategori)->first(); // berarti ini liat arsip dengan nama sub A tipe_kategori 4
+
+          $kategori->parent = $parents->id_kategori; //trs kategori td itu folder Tes tipe_kategori 4, simpan parentnya = sub A
+          $kategori->save(); //simpan
+
+          $nextparent = Kategori::where('id_kategori', $parent->parent)->first(); //kalo nex udah null
+          if($nextparent->parent == null){
+            $parents->parent = $root->id_kategori;
+            $parents->save();
+          }
+        }
+
+        $kategori = Kategori::where('nama_kategori', $parent->nama_kategori)
+                              ->where('root', $root->id_kategori)->first();
+        $parent = $parent->parent;
+      }
+    }
+
+    public static function getCategoryType($parent){
+      if($parent != null){
+        $folder = Kategori::where('id_kategori', $parent)->first();
+        $parent = App::getArchiveRootType($folder);
+      } else {
+        $parent = 4;
+      }
+
+      return $parent;
+    }
+
     public static function getPathCount($path){
       $i = 0;
       foreach ($path as $key => $value) {
@@ -211,6 +339,12 @@
       return $arsip->delete();
     }
 
+    public static function hapusFileArsip($arsip){
+      if(File::exists($arsip->file)){
+        File::delete($arsip->file);
+      }
+    }
+
     private static function deleteProfile($user){
       if($user->foto != 'img/profile.jpg'){
         File::delete($user->foto);
@@ -224,13 +358,13 @@
     }
 
     public static function formatDate($date){
-      $dateTime = date_create($date);
-      return date_format($dateTime, "d/m/Y");
+      $dateTime = strtotime(strtr($date, '/', '-'));
+      return date("Y/m/d", $dateTime);
     }
 
     public static function dbFormatDate($date){
       $dateTime = date_create(strtotime($date));
-      return date_format($dateTime, "Y/m/d");
+      return date_format($dateTime, "Y-m-d");
     }
 
     public static function getTodaysDateTime(){
