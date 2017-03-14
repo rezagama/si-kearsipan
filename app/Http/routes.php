@@ -134,7 +134,12 @@ Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
       'as' => 'kategori.store'
   ]);
 
-  Route::post('/kategori/arsip/folder/hapus', [
+  Route::post('/kategori/arsip/folder/update', [
+      'uses' => 'KategoriController@update',
+      'as' => 'kategori.update'
+  ]);
+
+  Route::delete('/kategori/arsip/folder/hapus', [
       'uses' => 'KategoriController@destroy',
       'as' => 'kategori.hapus'
   ]);
