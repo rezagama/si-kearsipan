@@ -272,27 +272,25 @@
       return $id;
     }
 
-    public static function setFolderParent($folder, $root){ //status 4
-      //Misal mindahin dari arsip aktif ke arsip x dengan tipe_kategori 4, ada arsip lain juga arsip y, tipe_kategori 4
-      //Sekarang ada di folder Sub A, subfoldernya Tes, parent nya arsip aktif
+    public static function setFolderParent($folder, $root){
       $status = $root->tipe_kategori;
-      $parent = $folder->parent; // ini berarti pertama ada di id_kategori nya Sub A
-      $archive = App::getArchiveRoot($folder); // nama kategori origin Arsip Aktif
+      $parent = $folder->parent;
+      $archive = App::getArchiveRoot($folder);
       $kategori = Kategori::where('nama_kategori', $folder->nama_kategori)
-                              ->where('root', $root->id_kategori)->first(); // berarti ini liat arsip dengan nama Tes dengan tipe_kategori 4
+                              ->where('root', $root->id_kategori)->first();
 
-      while ($parent != null) { //trs parentnya masih ada, sekarang parent ada di id_kategori Sub A
-        $parent = Kategori::where('id_kategori', $parent)->first(); //ini folder Sub A
-        $name = $parent->nama_kategori; // brarti namanya sub A
+      while ($parent != null) {
+        $parent = Kategori::where('id_kategori', $parent)->first();
+        $name = $parent->nama_kategori;
 
-        if($name != $archive){ //sub A != arsip aktif, bener
+        if($name != $archive){
           $parents = Kategori::where('nama_kategori', $name)
-                                ->where('root', $root->id_kategori)->first(); // berarti ini liat arsip dengan nama sub A tipe_kategori 4
+                                ->where('root', $root->id_kategori)->first();
 
-          $kategori->parent = $parents->id_kategori; //trs kategori td itu folder Tes tipe_kategori 4, simpan parentnya = sub A
-          $kategori->save(); //simpan
+          $kategori->parent = $parents->id_kategori;
+          $kategori->save();
 
-          $nextparent = Kategori::where('id_kategori', $parent->parent)->first(); //kalo nex udah null
+          $nextparent = Kategori::where('id_kategori', $parent->parent)->first();
           if($nextparent->parent == null){
             $parents->parent = $root->id_kategori;
             $parents->save();
