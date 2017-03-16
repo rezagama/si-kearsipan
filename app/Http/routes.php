@@ -86,6 +86,11 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'uses' => 'ArsipController@update',
     'as' => 'arsip.update'
   ]);
+
+  Route::get('/riwayat/aktifitas', [
+    'uses' => 'LogController@index',
+    'as' => 'log.index'
+  ]);
 });
 
 Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
