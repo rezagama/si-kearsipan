@@ -106,7 +106,7 @@
                         {{$log->deskripsi}}
                         <p class="no-spacing"><i class="fa fa-calendar"></i> {{date('d/M/Y', strtotime($log->created_at))}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
                       </td>
-                      <td><i class="fa fa-clock-o"></i> 5 menit yang lalu</td>
+                      <td><i class="fa fa-clock-o"></i> {{Carbon::parse($log->created_at)->diffForHumans()}}</td>
                     </tr>
                     @endforeach
                   </tbody>
