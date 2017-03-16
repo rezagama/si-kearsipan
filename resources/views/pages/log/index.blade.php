@@ -1,91 +1,48 @@
 @extends('layouts.main')
 
-@section('title', 'Sistem Informasi Kearsipan / Daftar Arsip / '. $arsip->judul)
+@section('title', 'Sistem Informasi Kearsipan / Riwayat')
 
 @section('content')
 <ol class="breadcrumb v-spacing">
   <i class="fa fa-sitemap breadcrumb-ic"></i> <li><a href="{{URL::route('dashboard.index')}}">Dashboard</a></li>
-  @if(isset($path))
-  <li><a href="{{URL::route('arsip.index')}}">Daftar Arsip</a></li>
-    @for ($i = $size; $i >= 0; $i--)
-      @if($i == 0)
-        <li><a href="{{URL::route('arsip.dokumen', $path[$i]['url'])}}">{{$path[$i]['title']}}</a></li>
-      @else
-        <li><a href="{{URL::route('arsip.show', $path[$i]['url'])}}">{{$path[$i]['title']}}</a></li>
-      @endif
-    @endfor
-  @else
-    <li><a class="active" href="{{URL::route('arsip.index')}}">Daftar Arsip</a></li>
-  @endif
-  <li><a class="active" href="{{URL::route('arsip.detail', $arsip->id_arsip)}}">{{$arsip->judul}}</a></li>
+  <li><a class="active" href="{{URL::route('log.index')}}">Riwayat</a></li>
 </ol>
 <div class="row v-spacing">
-  <div class="col-md-4 col-sm-4 col-xs-12">
-    <div class="panel panel-default">
+  <div class="col-sm-6 col-md-3 col-xs-12">
+    <div class="panel panel-default sidebar-stat">
       <div class="panel-heading">
-        Detail Arsip <a href="{{URL::route('arsip.edit', $arsip->id_arsip)}}" class="btn btn-warning btn-sm btn-panel-heading pull-right"><i class="fa fa-edit"></i></a>
+        Statistik
       </div>
-      <div class="panel-body">
-        <div class="container-fluid no-spacing">
-          <div class="col-md-5 col-sm-5 col-xs-12 no-spacing">
-            <img src="{{url('img/ic-file.png')}}" class="thumbnail preview"/>
-          </div>
-          <div class="col-md-7 col-sm-7 col-xs-12 no-spacing">
-            <label>Judul</label>
-            <p>{{$arsip->judul}}</p>
-            <label>No. Arsip</label>
-            <p>{{$arsip->no_arsip}}</p>
-            <label>Jadwal Retensi</label>
-            <p>{{date('D, d M Y', strtotime($arsip->jadwal_retensi))}}</p>
-          </div>
+      <div class="container-fluid v-spacing">
+        <div class="col-md-6" align="center">
+          <label>Arsip</label>
+          <h3 class="no-spacing">{{$arsip}}</h3>
+          <p class="font-sm">aktifitas</p>
         </div>
-        <hr/>
-        <div class="container-fluid no-spacing">
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <label>Pencipta Arsip</label>
-            <p>
-              <a href="{{URL::route('account.show', $arsip->id_user)}}">{{$arsip->nama}}</a>
-            </p>
-            <label>Folder</label>
-            <p>{{$arsip->nama_kategori}}</p>
-            <label>Ditambahkan Pada</label>
-            <p>{{date('D, d M Y', strtotime($arsip->created_at))}}</p>
-          </div>
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <label>Deskripsi</label>
-            <p>
-              @if($arsip->deskripsi == '')
-                -
-              @else
-                {{$arsip->deskripsi}}
-              @endif
-            </p>
-            <label>Kategori Arsip</label>
-            <p>
-              @if($arsip->status == 0)
-                <span class="label label-danger inline">Arsip Dimusnahkan</span>
-              @elseif($arsip->status == 1)
-                <span class="label label-success inline">Arsip Aktif</span>
-              @elseif($arsip->status == 2)
-                <span class="label label-primary inline">Arsip Inaktif</span>
-              @elseif($arsip->status == 3)
-                <span class="label label-info inline">Arsip Statis</span>
-              @else
-                <span class="label label-warning inline">Arsip Lain-lain</span>
-              @endif
-            </p>
-          </div>
-          <div class="col-md-12">
-            <a href="{{URL::route('arsip.download', $arsip->id_arsip)}}" class="btn btn-primary btn-print" target="_blank"><i class="fa fa-print"></i> Print Arsip</a>
-          </div>
+        <div class="col-md-6" align="center">
+          <label>Kategori</label>
+          <h3 class="no-spacing">{{$kategori}}</h3>
+          <p class="font-sm">aktifitas</p>
+        </div>
+      </div>
+      <div class="container-fluid v-spacing">
+        <div class="col-md-6" align="center">
+          <label>Akun</label>
+          <h3 class="no-spacing">{{$akun}}</h3>
+          <p class="font-sm">aktifitas</p>
+        </div>
+        <div class="col-md-6" align="center">
+          <label>Lain Lain</label>
+          <h3 class="no-spacing">{{$lain}}</h3>
+          <p class="font-sm">aktifitas</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-8 col-sm-8 col-xs-12">
+  <div class="col-sm-6 col-md-9 col-xs-12">
     <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
-                Riwayat Arsip
+                Riwayat Aktifitas
         </div>
         <div class="panel-body">
             <div class="tab-content">
@@ -103,8 +60,17 @@
                         <img src="{{url($log->foto)}}" class="avatar-xs" alt="{{$log->deskripsi}}">
                       </td>
                       <td>
-                        {{$log->deskripsi}}
-                        <p class="no-spacing"><i class="fa fa-calendar"></i> {{date('d/M/Y', strtotime($log->created_at))}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
+                        @if($log->tipe == 0)
+                          <p>{{$log->deskripsi}}</p>
+                        @elseif($log->tipe == 1)
+                          <?php $riwayat = DB::table('t_riwayat')->where('id_log', $log->id_log)->first(); ?>
+                          <a href="{{URL::route('arsip.detail', $riwayat->id_arsip)}}">{{$log->deskripsi}}</a>
+                        @elseif($log->tipe == 2)
+                          <a href="{{URL::route('account.show', $log->url)}}">{{$log->deskripsi}}</a>
+                          @elseif($log->tipe == 3)
+                            <a href="{{URL::route('arsip.dokumen', $log->url)}}">{{$log->deskripsi}}</a>
+                        @endif
+                        <p class="no-spacing"><i class="fa fa-calendar"></i> {{Carbon::parse($log->created_at)->formatLocalized('%d, %B %Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
                       </td>
                       <td><i class="fa fa-clock-o"></i> {{Carbon::parse($log->created_at)->diffForHumans()}}</td>
                     </tr>

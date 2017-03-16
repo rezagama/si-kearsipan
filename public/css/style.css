@@ -698,3 +698,11 @@ hr {
 .btn-panel-heading{
   margin-top: -3px
 }
+
+.font-sm{
+  font-size: 11px;
+}
+
+.sidebar-stat{
+  padding-bottom: 20px
+}
