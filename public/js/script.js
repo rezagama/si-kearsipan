@@ -12,6 +12,9 @@ $(document).ready(function(){
    function setActiveMenu(selectedMenu){
      removeSelectedMenu();
      switch (selectedMenu) {
+       case 'riwayat':
+         $('#riwayat').addClass('active');
+         break;
        case 'arsip':
          $('#arsip').addClass('active');
          break;
