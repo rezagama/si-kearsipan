@@ -73,7 +73,7 @@
 					Statistik </a>
 				</li>
         <li id="riwayat">
-					<a href="">
+					<a href="{{URL::route('log.index')}}">
 					<i class="fa fa-calendar"></i>
 					Riwayat </a>
 				</li>
