@@ -523,6 +523,13 @@ body{
   display: inline-block
 }
 
+.avatar-lg{
+  width: 70%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block
+}
+
 .table-question{
   max-width: 500px;
 }
@@ -705,4 +712,109 @@ hr {
 
 .sidebar-stat{
   padding-bottom: 20px
+}
+
+.table-lg{
+  width: 65% !important;
+}
+
+.th-avatar{
+  width: 12% !important;
+}
+
+.font-brown{
+  color: #8a6d3b;
+}
+
+.font-brown-bold{
+  color: #8a6d3b;
+  font-weight: bold;
+}
+
+.font-grey{
+  color: #9c9c9c;
+}
+
+.th-profile{
+  width: 80px !important;
+}
+
+.avatar-msg{
+  width: 80px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  vertical-align: inherit;
+  margin-bottom: 20px;
+}
+
+.pesan{
+  background: #f7f7f7;
+  border: #f7f7f7;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-top: 25px;
+  min-width: 380px;
+  max-width: 785px;
+}
+
+.left-margin-sm{
+  margin-left: 5px;
+}
+
+.right-margin-sm{
+  margin-right: 5px;
+}
+
+.vertical-align-middle{
+  vertical-align: middle !important;
+}
+
+.border-top-gray{
+  border-top: 1px solid #ddd;
+}
+
+.no-border{
+  border: 0px !important;
+}
+
+.msg > .username,
+.msg > .title{
+  color: #434348;
+  text-transform: none;
+}
+
+.msg-avatar{
+  float: none;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  border: 1px solid #ddd;
+}
+
+.font-xs{
+  font-size: 8px
+}
+
+.vertical-spacing-sm{
+  margin-top: 5px
+}
+
+.vertical-spacing-xs{
+  margin-top: 2px
+}
+
+.fit-width{
+  width: 100% !important;
+}
+
+.no-padding{
+  padding: 0 !important;
+}
+
+.font-red{
+  color: #d43f3a;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }

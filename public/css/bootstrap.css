@@ -5035,7 +5035,7 @@ a.label:focus {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  background-color: #777;
+  background-color: #434348;
   border-radius: 10px;
 }
 .badge:empty {
@@ -5058,7 +5058,7 @@ a.badge:focus {
 }
 .list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #337ab7;
+  color: #8a6d3b;
   background-color: #fff;
 }
 .list-group-item > .badge {
@@ -5417,8 +5417,8 @@ button.list-group-item {
 .list-group-item.active:focus {
   z-index: 2;
   color: #fff;
-  background-color: #337ab7;
-  border-color: #337ab7;
+  background-color: #8a6d3b;
+  border-color: #8a6d3b;
 }
 .list-group-item.active .list-group-item-heading,
 .list-group-item.active:hover .list-group-item-heading,

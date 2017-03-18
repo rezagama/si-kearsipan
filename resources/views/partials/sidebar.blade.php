@@ -78,7 +78,7 @@
 					Riwayat </a>
 				</li>
         <li id="pesan">
-					<a href="">
+					<a href="{{URL::route('pesan.masuk')}}">
 					<i class="fa fa-envelope"></i>
 					Pesan </a>
 				</li>
