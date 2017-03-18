@@ -91,6 +91,51 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'uses' => 'LogController@index',
     'as' => 'log.index'
   ]);
+
+  Route::get('/pesan/masuk', [
+    'uses' => 'PesanController@pesanmasuk',
+    'as' => 'pesan.masuk'
+  ]);
+
+  Route::get('/pesan/terkirim', [
+    'uses' => 'PesanController@pesankeluar',
+    'as' => 'pesan.keluar'
+  ]);
+
+  Route::get('/pesan/{id}/detail', [
+    'uses' => 'PesanController@show',
+    'as' => 'pesan.show'
+  ]);
+
+  Route::post('/pesan/{id}/kirim', [
+    'uses' => 'PesanController@balas',
+    'as' => 'pesan.balas'
+  ]);
+
+  Route::get('/pesan/tulis', [
+    'uses' => 'PesanController@compose',
+    'as' => 'pesan.compose'
+  ]);
+
+  Route::post('/pesan/kirim/baru', [
+    'uses' => 'PesanController@store',
+    'as' => 'pesan.store'
+  ]);
+
+  Route::get('/pesan/{id}/edit', [
+    'uses' => 'PesanController@edit',
+    'as' => 'pesan.edit'
+  ]);
+
+  Route::post('/pesan/{id}/update', [
+    'uses' => 'PesanController@update',
+    'as' => 'pesan.update'
+  ]);
+
+  Route::delete('/pesan/{id}/delete', [
+    'uses' => 'PesanController@delete',
+    'as' => 'pesan.delete'
+  ]);
 });
 
 Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
