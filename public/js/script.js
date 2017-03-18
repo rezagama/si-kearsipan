@@ -12,6 +12,9 @@ $(document).ready(function(){
    function setActiveMenu(selectedMenu){
      removeSelectedMenu();
      switch (selectedMenu) {
+       case 'pesan':
+         $('#pesan').addClass('active');
+         break;
        case 'riwayat':
          $('#riwayat').addClass('active');
          break;
