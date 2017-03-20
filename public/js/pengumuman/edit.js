@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var quill = new Quill('#reply-field', {
     theme: 'snow',
-    placeholder: 'Balas pesan ...',
+    placeholder: 'Edit pengumuman ...',
     modules: {
       toolbar: [
         [{ header: [1, 2, false] }],
@@ -13,7 +13,9 @@ $(document).ready(function(){
     },
   });
 
+  $('.ql-editor').html($("textarea#isi").text());
+
   $('.ql-editor').bind("DOMSubtreeModified", function(){
-    $("textarea#balasan").html($(this).html());
+    $("textarea#isi").html($(this).html());
   });
 });

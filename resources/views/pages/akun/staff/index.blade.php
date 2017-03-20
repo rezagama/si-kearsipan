@@ -13,7 +13,7 @@
         <div class="panel-body">
           <div class="container-fluid no-spacing">
             <div class="col-md-5 no-spacing">
-              <img src="{{url('img/profile.jpg')}}" class="thumbnail preview"/>
+              <img src="{{url('img/photo_placeholder.png')}}" class="thumbnail preview border-grey"/>
             </div>
             <div class="col-md-7 no-spacing">
               <div class="input-group">
@@ -22,7 +22,7 @@
               </div>
               <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-id-card-o"></i></span>
-                <input id="nip" name="nip" type="number" maxlength="18" class="form-control" placeholder="NIP" aria-describedby="basic-addon1" required data-parsley-errors-messages-disabled tabindex="1">
+                <input id="nip" name="nip" type="text" data-parsley-type="number" maxlength="18" class="form-control" placeholder="NIP" aria-describedby="basic-addon1" required data-parsley-errors-messages-disabled tabindex="1">
               </div>
               <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope"></i></span>
@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          <div class="container-fluid no-spacing">
+          <div class="container-fluid no-spacing vertical-spacing-sm">
             <div class="col-md-7 no-spacing">
               <div class="input-group no-spacing">
                   <input id="filelabel" name="filelabel" type="text" class="form-control" value="Foto belum dipilih"readonly tabindex="7">

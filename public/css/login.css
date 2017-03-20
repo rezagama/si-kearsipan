@@ -255,3 +255,67 @@ button.btn:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: none
 button.btn:focus { outline: 0; opacity: 0.6; background: #3e311b; color: #fff; }
 
 button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #3e311b; color: #fff; }
+
+.pengumuman > .carousel-inner {
+  height: 387px;
+}
+
+.pengumuman > .carousel-inner > .item > img {
+  position: absolute;
+  height: auto;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.text-pengumuman {
+  max-width: 830px;
+  z-index: 100;
+  position: absolute;
+  color: white;
+  font-size: 18px;
+  padding: 0px 40px;
+  top: 235px;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.judul-pengumuman {
+  font-weight: 400;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.deskripsi-pengumuman p {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 200;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.deskripsi-pengumuman p span{
+  color: #fff !important;
+}
+
+.transparent-bg {
+  z-index: 1;
+  position: absolute;
+  background: rgba(51, 51, 51, 0.38);
+  height: 387px;
+  width: 100%;
+}
+
+.font-yellow{
+  color: #FFC107 !important;
+}
+
+.text-pengumuman p a:hover{
+  color: #FFC107;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.no-spacing{
+  margin: 0;
+  padding: 0;
+}

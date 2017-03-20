@@ -6,6 +6,7 @@
   use App\Helpers\App;
   use App\Kategori;
   use App\Arsip;
+  use Carbon\Carbon;
   use Session;
   use Redirect;
   use View;
@@ -333,6 +334,28 @@
       }
 
       return $delete;
+    }
+
+    public static function formatLocalDate($date, $format){
+      $idx = Carbon::parse($date)->format('w');
+      $day = Carbon::parse($date)->format('d');
+      $month = Carbon::parse($date)->format('n');
+      $year = Carbon::parse($date)->format('Y');
+
+      $hari = array("Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu");
+      $bulan = array("","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+
+      switch ($format) {
+        case 'l, d M Y':
+          $date = $hari[$idx].', '.$day.' '.$bulan[$month].' '.$year;
+          break;
+
+        default:
+          $date = $day.' '.$bulan[$month].' '.$year;
+          break;
+      }
+
+      return $date;
     }
 
     public static function getPathCount($path){

@@ -6,14 +6,24 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Helpers\App;
+use App\Pengumuman;
 use App\User;
 use Redirect;
 use Auth;
+use DB;
 
 class LoginController extends Controller
 {
     public function index(){
-      return view('pages.login');
+      $pengumuman = DB::table('t_pengumuman')
+                      ->join('t_akun', 't_pengumuman.id_user', '=', 't_akun.id_user')
+                      ->select('t_pengumuman.*', 't_akun.nama', 't_akun.id_user')
+                      ->get();
+
+      $jumlah_pengumuman = Pengumuman::all()->count();
+
+      return view('pages.login')->with('pengumuman', $pengumuman)
+                  ->with('jumlah_pengumuman', $jumlah_pengumuman);
     }
 
     public function login(Request $request){

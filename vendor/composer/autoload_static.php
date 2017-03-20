@@ -776,6 +776,7 @@ class ComposerStaticInit22f4ad899c0b387d674505a6cc1a08a2
         'TKategori' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141652_t_kategori.php',
         'TLog' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141728_t_log.php',
         'TPemberitahuan' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141714_t_pemberitahuan.php',
+        'TPengumuman' => __DIR__ . '/../..' . '/database/migrations/2017_03_19_155629_t_pengumuman.php',
         'TPesan' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141658_t_pesan.php',
         'TRiwayat' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_101932_t_riwayat.php',
         'TStatistik' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_141721_t_statistik.php',

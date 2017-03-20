@@ -6,86 +6,90 @@
 <div class="row">
   <div id="carousel" class="carousel slide pengumuman" data-ride="carousel">
     <ol class="carousel-indicators">
-      <li data-target="#carousel" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel" data-slide-to="1"></li>
+      @for($i=0;$i<$jumlah_pengumuman;$i++)
+        @if($i == 0)
+          <li data-target="#carousel" data-slide-to="{{$i}}" class="active"></li>
+        @else
+          <li data-target="#carousel" data-slide-to="{{$i}}"></li>
+        @endif
+      @endfor
     </ol>
     <div class="carousel-inner" role="listbox">
-      <div class="item active">
-        <img src="{{url('img/tugu_jogja.png')}}" alt="Jogja">
-        <span class="text-pengumuman"><p class="judul-pengumuman">Pengumuman A</p>
-
-        <p class="deskripsi-pengumuman">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></span>
-        <span class="transparent-bg"/>
-      </div>
-
-      <div class="item">
-        <img src="{{url('img/bank_indonesia.jpg')}}" alt="BI">
-        <span class="text-pengumuman"><p class="judul-pengumuman">Pengumuman B</p>
-
-        <p class="deskripsi-pengumuman">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></span>
-        <span class="transparent-bg"/>
-      </div>
+      @foreach($pengumuman as $key => $pengumuman)
+        @if($key == 0)
+        <div class="item active">
+          <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
+          <span class="text-pengumuman">
+            <p class="judul-pengumuman no-spacing"><a href="{{URL::route('pengumuman.show', $pengumuman->id_pengumuman)}}" class="font-yellow cursor-pointer">{{$pengumuman->judul_pengumuman}}</a></p>
+            <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 30) !!}</div>
+            <div class="no-spacing author">
+              oleh <a class="font-yellow cursor-pointer" href="{{URL::route('account.show', $pengumuman->id_user)}}">{{$pengumuman->nama}}</a>
+              <i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($pengumuman->created_at, 'l, d M Y')}}
+              <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($pengumuman->created_at))}}
+            </div>
+          </span>
+          <span class="transparent-bg"/>
+        </div>
+        @else
+        <div class="item">
+          <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
+          <span class="text-pengumuman">
+            <p class="judul-pengumuman no-spacing"><a href="{{URL::route('pengumuman.show', $pengumuman->id_pengumuman)}}" class="font-yellow cursor-pointer">{{$pengumuman->judul_pengumuman}}</a></p>
+            <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 30) !!}</div>
+            <div class="no-spacing author">
+              oleh <a class="font-yellow cursor-pointer" href="{{URL::route('account.show', $pengumuman->id_user)}}">{{$pengumuman->nama}}</a>
+              <i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($pengumuman->created_at, 'l, d M Y')}}
+              <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($pengumuman->created_at))}}
+            </div>
+          </span>
+          <span class="transparent-bg"/>
+        </div>
+        @endif
+      @endforeach
     </div>
   </div>
 </div>
 <div class="row v-spacing">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="info-box">
-      <span class="info-box-icon bg-gray"><i class="fa fa-user"></i></span>
+      <span class="info-box-icon bg-brown"><i class="fa fa-user"></i></span>
       <div class="info-box-content">
         <span class="info-box-number">5</span>
         <span class="info-box-text">Admin</span>
       </div>
-      <!-- /.info-box-content -->
     </div>
-    <!-- /.info-box -->
   </div>
-  <!-- /.col -->
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-gray"><i class="fa fa-users"></i></span>
+      <span class="info-box-icon bg-brown"><i class="fa fa-users"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-number">7</span>
         <span class="info-box-text">Staff</span>
       </div>
-      <!-- /.info-box-content -->
     </div>
-    <!-- /.info-box -->
   </div>
-  <!-- /.col -->
-
-  <!-- fix for small devices only -->
   <div class="clearfix visible-sm-block"></div>
 
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-gray"><i class="fa fa-lock"></i></span>
-
+      <span class="info-box-icon bg-brown"><i class="fa fa-lock"></i></span>
       <div class="info-box-content">
         <span class="info-box-number">55x</span>
         <span class="info-box-text">Login</span>
       </div>
-      <!-- /.info-box-content -->
     </div>
-    <!-- /.info-box -->
   </div>
-  <!-- /.col -->
+
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-gray"><i class="fa fa-calendar"></i></span>
-
+      <span class="info-box-icon bg-brown"><i class="fa fa-calendar"></i></span>
       <div class="info-box-content">
         <span class="info-box-number">12/15/2016</span>
         <span class="info-box-text">Terakhir Login</span>
       </div>
-      <!-- /.info-box-content -->
     </div>
-    <!-- /.info-box -->
   </div>
-  <!-- /.col -->
 </div>
 <div class="row margin-spacing">
   <div class="col-md-7 col-sm-7 col-xs - 12">

@@ -67,7 +67,12 @@
           Kategori Arsip </a>
         </li>
         @endif
-        <li id="statistik-arsip">
+        <li id="pengumuman">
+					<a href="{{URL::route('pengumuman.index')}}">
+					<i class="fa fa-newspaper-o"></i>
+					Pengumuman </a>
+				</li>
+        <li id="statistik">
 					<a href="{{URL::route('kategori.index')}}">
 					<i class="fa fa-line-chart"></i>
 					Statistik </a>

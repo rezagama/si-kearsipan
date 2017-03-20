@@ -26,6 +26,16 @@ Route::get('/logout', [
   'as' => 'user.logout'
 ])->middleware('session');
 
+Route::get('/beranda/pengumuman', [
+  'uses' => 'PengumumanController@home',
+  'as' => 'pengumuman.list'
+]);
+
+Route::get('/beranda/pengumuman/{id}/post', [
+  'uses' => 'PengumumanController@post',
+  'as' => 'pengumuman.post'
+]);
+
 Route::group(['middleware' => ['auth', 'status']], function () {
   Route::get('/dashboard', [
     'uses' => 'DashboardController@index',
@@ -135,6 +145,41 @@ Route::group(['middleware' => ['auth', 'status']], function () {
   Route::delete('/pesan/{id}/delete', [
     'uses' => 'PesanController@delete',
     'as' => 'pesan.delete'
+  ]);
+
+  Route::get('/pengumuman', [
+    'uses' => 'PengumumanController@index',
+    'as' => 'pengumuman.index'
+  ]);
+
+  Route::get('/pengumuman/baru', [
+    'uses' => 'PengumumanController@compose',
+    'as' => 'pengumuman.compose'
+  ]);
+
+  Route::get('/pengumuman/{id}/detail', [
+    'uses' => 'PengumumanController@show',
+    'as' => 'pengumuman.show'
+  ]);
+
+  Route::post('/pengumuman/store', [
+    'uses' => 'PengumumanController@store',
+    'as' => 'pengumuman.store'
+  ]);
+
+  Route::post('/pengumuman/{id}/update', [
+    'uses' => 'PengumumanController@update',
+    'as' => 'pengumuman.update'
+  ]);
+
+  Route::get('/pengumuman/{id}/edit', [
+    'uses' => 'PengumumanController@edit',
+    'as' => 'pengumuman.edit'
+  ]);
+
+  Route::delete('/pengumuman/{id}/delete', [
+    'uses' => 'PengumumanController@delete',
+    'as' => 'pengumuman.delete'
   ]);
 });
 
