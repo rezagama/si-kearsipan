@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div class="buttons">
-			<button type="button" class="btn btn-success btn-sm">Profil</button>
+			<a href="{{URL::route('account.show', Auth::user()->id_user)}}" type="button" class="btn btn-success btn-sm">Profil</a>
 			<button type="button" class="btn btn-info btn-sm"><i class="fa fa-bell"></i> <span class="badge">0</span></button>
 		</div>
 		<div class="main-menu">
