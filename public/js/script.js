@@ -11,26 +11,8 @@ $(document).ready(function(){
 
    function setActiveMenu(selectedMenu){
      removeSelectedMenu();
-     switch (selectedMenu) {
-       case 'pesan':
-         $('#pesan').addClass('active');
-         break;
-       case 'riwayat':
-         $('#riwayat').addClass('active');
-         break;
-       case 'arsip':
-         $('#arsip').addClass('active');
-         break;
-       case 'akun':
-         $('#akun').addClass('active');
-         break;
-       case 'kategori':
-         $('#kategori').addClass('active');
-         break;
-       default:
-         $('#dashboard').addClass('active');
-         break;
-     }
+     var selectedMenu = '#' + selectedMenu;
+     $(selectedMenu).addClass('active');
    }
 
    function removeSelectedMenu(){
