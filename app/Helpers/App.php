@@ -387,6 +387,12 @@
       }
     }
 
+    public static function hapusFoto($user){
+      if(File::exists($user->foto)){
+        File::delete($user->foto);
+      }
+    }
+
     public static function trimText($text, $limit) {
       if (str_word_count($text, 0) > $limit) {
           $words = str_word_count($text, 2);
