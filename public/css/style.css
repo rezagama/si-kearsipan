@@ -491,6 +491,7 @@ body{
   float: none;
   margin: 0 auto;
   width: 40px;
+  height: 40px;
   overflow: hidden;
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
@@ -547,6 +548,10 @@ body{
   height: 400px;
 }
 
+.pengumuman > .carousel-inner > .item {
+  padding: 25px;
+}
+
 .pengumuman > .carousel-inner > .item > img {
   position: absolute;
   height: auto;
@@ -556,25 +561,30 @@ body{
 }
 
 .text-pengumuman {
+  max-width: 830px;
   z-index: 100;
   position: absolute;
   color: white;
-  font-size: 24px;
+  font-size: 18px;
   padding: 15px;
-  top: 235px;
+  top: 255px;
   font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 
 .judul-pengumuman {
-  font-weight: 500;
+  font-weight: 400;
   font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 
-.deskripsi-pengumuman {
+.deskripsi-pengumuman p {
   width: 850px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 200;
   font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.deskripsi-pengumuman p span{
+  color: #fff !important;
 }
 
 .transparent-bg {
@@ -706,6 +716,10 @@ hr {
   margin-top: -3px
 }
 
+.font-md{
+  font-size: 14px;
+}
+
 .font-sm{
   font-size: 11px;
 }
@@ -796,7 +810,7 @@ hr {
 }
 
 .vertical-spacing-sm{
-  margin-top: 5px
+  margin-top: 5px !important
 }
 
 .vertical-spacing-xs{
@@ -815,6 +829,18 @@ hr {
   color: #d43f3a;
 }
 
+.font-yellow{
+  color: #FFC107;
+}
+
+.text-pengumuman p a:hover{
+  color: #FFC107;
+}
+
 .cursor-pointer{
   cursor: pointer;
+}
+
+.border-grey{
+  border: 2px solid #eee;
 }
