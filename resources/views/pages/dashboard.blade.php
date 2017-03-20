@@ -21,7 +21,8 @@
           <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
           <span class="text-pengumuman">
             <p class="judul-pengumuman no-spacing"><a href="{{URL::route('pengumuman.show', $pengumuman->id_pengumuman)}}" class="font-yellow cursor-pointer">{{$pengumuman->judul_pengumuman}}</a></p>
-            <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 25) !!}
+            <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 30) !!}</div>
+            <div class="no-spacing author">
               oleh <a class="font-yellow cursor-pointer" href="{{URL::route('account.show', $pengumuman->id_user)}}">{{$pengumuman->nama}}</a>
               <i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($pengumuman->created_at, 'l, d M Y')}}
               <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($pengumuman->created_at))}}
@@ -34,7 +35,8 @@
           <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
           <span class="text-pengumuman">
             <p class="judul-pengumuman no-spacing"><a href="{{URL::route('pengumuman.show', $pengumuman->id_pengumuman)}}" class="font-yellow cursor-pointer">{{$pengumuman->judul_pengumuman}}</a></p>
-            <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 25) !!}
+            <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 30) !!}</div>
+            <div class="no-spacing author">
               oleh <a class="font-yellow cursor-pointer" href="{{URL::route('account.show', $pengumuman->id_user)}}">{{$pengumuman->nama}}</a>
               <i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($pengumuman->created_at, 'l, d M Y')}}
               <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($pengumuman->created_at))}}
@@ -50,7 +52,7 @@
 <div class="row v-spacing">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="info-box">
-      <span class="info-box-icon bg-gray"><i class="fa fa-user"></i></span>
+      <span class="info-box-icon bg-brown"><i class="fa fa-user"></i></span>
       <div class="info-box-content">
         <span class="info-box-number">5</span>
         <span class="info-box-text">Admin</span>
@@ -59,7 +61,7 @@
   </div>
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-gray"><i class="fa fa-users"></i></span>
+      <span class="info-box-icon bg-brown"><i class="fa fa-users"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-number">7</span>
@@ -71,7 +73,7 @@
 
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-gray"><i class="fa fa-lock"></i></span>
+      <span class="info-box-icon bg-brown"><i class="fa fa-lock"></i></span>
       <div class="info-box-content">
         <span class="info-box-number">55x</span>
         <span class="info-box-text">Login</span>
@@ -81,7 +83,7 @@
 
   <div class="col-md-3 col-sm-6 col-xs - 12">
     <div class="info-box">
-      <span class="info-box-icon bg-gray"><i class="fa fa-calendar"></i></span>
+      <span class="info-box-icon bg-brown"><i class="fa fa-calendar"></i></span>
       <div class="info-box-content">
         <span class="info-box-number">12/15/2016</span>
         <span class="info-box-text">Terakhir Login</span>

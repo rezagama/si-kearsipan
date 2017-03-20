@@ -26,6 +26,16 @@ Route::get('/logout', [
   'as' => 'user.logout'
 ])->middleware('session');
 
+Route::get('/beranda/pengumuman', [
+  'uses' => 'PengumumanController@home',
+  'as' => 'pengumuman.list'
+]);
+
+Route::get('/beranda/pengumuman/{id}/post', [
+  'uses' => 'PengumumanController@post',
+  'as' => 'pengumuman.post'
+]);
+
 Route::group(['middleware' => ['auth', 'status']], function () {
   Route::get('/dashboard', [
     'uses' => 'DashboardController@index',

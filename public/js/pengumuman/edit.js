@@ -8,6 +8,7 @@ $(document).ready(function(){
         ['bold', 'italic', 'underline'],
         ['image', 'code-block'],
         [{ 'align': [] }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
       ]
     },
   });

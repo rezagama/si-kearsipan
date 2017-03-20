@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sistem Informasi Kearsipan</title>
 
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="{{url('css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{url('css/font-awesome.min.css')}}">
         <link rel="stylesheet" href="{{url('css/login.css')}}">
@@ -36,27 +35,39 @@
                       </div>
                       @endif
                       <div class="col-sm-8">
-                        <div id="carousel" class="carousel slide" data-ride="carousel">
+                        <div id="carousel" class="carousel slide pengumuman" data-ride="carousel">
                           <ol class="carousel-indicators">
-                            <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel" data-slide-to="1"></li>
+                            @for($i=0;$i<$jumlah_pengumuman;$i++)
+                              @if($i == 0)
+                                <li data-target="#carousel" data-slide-to="{{$i}}" class="active"></li>
+                              @else
+                                <li data-target="#carousel" data-slide-to="{{$i}}"></li>
+                              @endif
+                            @endfor
                           </ol>
                           <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                              <img src="{{url('img/tugu_jogja.png')}}" alt="Jogja">
-                            </div>
-                            <div class="item">
-                              <img src="{{url('img/bank_indonesia.jpg')}}" alt="BI">
-                            </div>
+                            @foreach($pengumuman as $key => $pengumuman)
+                              @if($key == 0)
+                              <div class="item active">
+                                <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
+                                <span class="text-pengumuman">
+                                  <p class="judul-pengumuman no-spacing"><a href="{{URL::route('pengumuman.post', $pengumuman->id_pengumuman)}}" class="font-yellow cursor-pointer">{{$pengumuman->judul_pengumuman}}</a></p>
+                                  <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 25) !!}</div>
+                                </span>
+                                <span class="transparent-bg"/>
+                              </div>
+                              @else
+                              <div class="item">
+                                <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
+                                <span class="text-pengumuman">
+                                  <p class="judul-pengumuman no-spacing"><a href="{{URL::route('pengumuman.post', $pengumuman->id_pengumuman)}}" class="font-yellow cursor-pointer">{{$pengumuman->judul_pengumuman}}</a></p>
+                                  <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 25) !!}</div>
+                                </span>
+                                <span class="transparent-bg"/>
+                              </div>
+                              @endif
+                            @endforeach
                           </div>
-                          <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                          </a>
-                          <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                          </a>
                         </div>
                       </div>
                       <div class="col-sm-4">

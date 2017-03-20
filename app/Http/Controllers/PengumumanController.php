@@ -31,6 +31,24 @@ class PengumumanController extends Controller
       return view('pages.pengumuman.detail')->with('pengumuman', $pengumuman);
     }
 
+    public function home(){
+      $pengumuman = DB::table('t_pengumuman')
+                      ->join('t_akun', 't_pengumuman.id_user', '=', 't_akun.id_user')
+                      ->select('t_pengumuman.*', 't_akun.nama', 't_akun.id_user')
+                      ->get();
+
+      return view('pages.pengumuman.home.index')->with('pengumuman', $pengumuman);
+    }
+
+    public function post($id){
+      $pengumuman = DB::table('t_pengumuman')->where('id_pengumuman', $id)
+                      ->join('t_akun', 't_pengumuman.id_user', '=', 't_akun.id_user')
+                      ->select('t_pengumuman.*', 't_akun.nama', 't_akun.id_user')
+                      ->first();
+
+      return view('pages.pengumuman.home.detail')->with('pengumuman', $pengumuman);
+    }
+
     public function compose(){
       return view('pages.pengumuman.compose');
     }
