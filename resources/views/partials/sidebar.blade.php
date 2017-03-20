@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div class="buttons">
-			<button type="button" class="btn btn-success btn-sm">Profil</button>
+			<a href="{{URL::route('account.show', Auth::user()->id_user)}}" type="button" class="btn btn-success btn-sm">Profil</a>
 			<button type="button" class="btn btn-info btn-sm"><i class="fa fa-bell"></i> <span class="badge">0</span></button>
 		</div>
 		<div class="main-menu">
@@ -41,7 +41,7 @@
           <ul id="sub-menu-akun" class="panel-collapse collapse">
             <li>
               <a href="{{URL::route('admin.index')}}"><i class="fa fa-group"></i> Admin</a>
-              <a href="{{URL::route('staff.index')}}"><i class="fa fa-graduation-cap"></i> Staff</a>
+              <a href="{{URL::route('staff.index')}}"><i class="fa fa-id-card"></i> Staff</a>
             </li>
           </ul>
 				</li>

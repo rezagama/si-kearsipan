@@ -1,8 +1,12 @@
 @extends('layouts.main')
 
-@section('title', 'Sistem Informasi Kearsipan / Akun / Admin')
+@section('title', 'Sistem Informasi Kearsipan / Akun Admin')
 
 @section('content')
+<ol class="breadcrumb v-spacing">
+  <i class="fa fa-sitemap breadcrumb-ic"></i> <li><a href="{{URL::route('dashboard.index')}}">Dashboard</a></li>
+  <li><a class="active" href="{{URL::route('admin.index')}}">Akun Admin</a></li>
+</ol>
 <div class="row v-spacing">
   <div class="col-sm-4 col-md-4 col-xs-12">
     <div class="panel panel-default">

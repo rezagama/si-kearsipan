@@ -27,7 +27,7 @@
   <div class="col-sm-6 col-md-9 col-xs-12">
     <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
-          {{$pengumuman->judul_pengumuman}}
+          {{$pengumuman->judul_pengumuman}} <a href="{{URL::route('pengumuman.edit', $pengumuman->id_pengumuman)}}" class="btn btn-warning btn-sm btn-panel-heading pull-right"><i class="fa fa-edit"></i></a>
         </div>
         <div class="panel-body">
           <p><i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($pengumuman->created_at, 'l, d M Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($pengumuman->created_at))}} <i class="fa fa-user"></i> <a class="font-brown" href="{{URL::route('account.show', $pengumuman->id_user)}}">{{$pengumuman->nama}}</a></p>
