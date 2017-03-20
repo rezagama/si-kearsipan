@@ -10,7 +10,8 @@
 <ol class="breadcrumb v-spacing">
   <i class="fa fa-sitemap breadcrumb-ic"></i> <li><a href="{{URL::route('dashboard.index')}}">Dashboard</a></li>
   <li><a href="{{URL::route('pengumuman.index')}}">Pengumuman</a></li>
-  <li><a class="active" href="{{URL::route('pengumuman.compose')}}">Edit</a></li>
+  <li><a href="{{URL::route('pengumuman.show', $pengumuman->id_pengumuman)}}">{{$pengumuman->judul_pengumuman}}</a></li>
+  <li><a class="active" href="{{URL::route('pengumuman.edit', $pengumuman->id_pengumuman)}}">Edit</a></li>
 </ol>
 <div class="row v-spacing">
   <div class="col-sm-6 col-md-3 col-xs-12">
