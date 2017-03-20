@@ -47,6 +47,16 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'as' => 'account.show'
   ]);
 
+  Route::get('akun/{id}/edit', [
+    'uses' => 'AccountController@edit',
+    'as' => 'account.edit'
+  ]);
+
+  Route::post('akun/{id}/update', [
+    'uses' => 'AccountController@update',
+    'as' => 'account.update'
+  ]);
+
   Route::get('/akun/staff', [
       'uses' => 'StaffController@index',
       'as' => 'staff.index'
