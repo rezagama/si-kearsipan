@@ -35,7 +35,7 @@
               @endif
             </p>
             <label>Tanggal Lahir</label>
-            <p>{{$user->tgl_lahir}}</p>
+            <p>{{Helpers::formatLocalDate($user->tgl_lahir, 'd M Y')}}</p>
             <label>Jenis Kelamin</label>
             <p>
               @if($user->jenis_kelamin == 0)

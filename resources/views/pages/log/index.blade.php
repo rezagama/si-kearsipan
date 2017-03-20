@@ -70,7 +70,7 @@
                           @elseif($log->tipe == 3)
                             <a href="{{URL::route('arsip.dokumen', $log->url)}}">{{$log->deskripsi}}</a>
                         @endif
-                        <p class="no-spacing"><i class="fa fa-calendar"></i> {{Carbon::parse($log->created_at)->formatLocalized('%d, %B %Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
+                        <p class="no-spacing"><i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($log->created_at, 'd M Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
                       </td>
                       <td><i class="fa fa-clock-o"></i> {{Carbon::parse($log->created_at)->diffForHumans()}}</td>
                     </tr>
