@@ -3,11 +3,20 @@
 @section('title', 'Sistem Informasi Kearsipan / Akun / '. $user->nama)
 
 @section('content')
+<ol class="breadcrumb v-spacing">
+  <i class="fa fa-sitemap breadcrumb-ic"></i> <li><a href="{{URL::route('dashboard.index')}}">Dashboard</a></li>
+  @if($user->level == 0)
+    <li><a href="{{URL::route('admin.index')}}">Akun Admin</a></li>
+  @else
+    <li><a href="{{URL::route('staff.index')}}">Akun Staff</a></li>
+  @endif
+  <li><a class="active" href="{{URL::route('account.show', $user->id_user)}}">{{$user->nama}}</a></li>
+</ol>
 <div class="row v-spacing">
   <div class="col-md-4 col-sm-4 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Profil
+        Profil <a href="{{URL::route('account.edit', $user->id_user)}}" class="btn btn-warning btn-sm btn-panel-heading pull-right"><i class="fa fa-edit"></i></a>
       </div>
       <div class="panel-body">
         <div class="container-fluid no-spacing">
@@ -84,20 +93,32 @@
               <table class="table table-hover data-table">
                   <thead>
                     <th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td class="th-md"></td>
                       <td></td>
                     </th>
                   </thead>
                   <tbody>
+                    @foreach($log as $log)
                     <tr>
-                      <td><img src="http://orig02.deviantart.net/f49e/f/2010/346/d/7/this_is_me_by_hace_studio-d34q588.png" class="avatar-xs" alt=""></td>
-                      <td><i class="fa fa-calendar"></i> 12/03/2017</td>
-                      <td>Reza menambahkan kategori dalam Sistem Informasi Kearsipan</td>
-                      <td><i class="fa fa-clock-o"></i> 5 menit yg lalu</td>
-                      <td></td>
+                      <td>
+                        <img src="{{url($log->foto)}}" class="avatar-xs" alt="{{$log->deskripsi}}">
+                      </td>
+                      <td>
+                        @if($log->tipe == 0)
+                          <p>{{$log->deskripsi}}</p>
+                        @elseif($log->tipe == 1)
+                          <?php $riwayat = DB::table('t_riwayat')->where('id_log', $log->id_log)->first(); ?>
+                          <a href="{{URL::route('arsip.detail', $riwayat->id_arsip)}}">{{$log->deskripsi}}</a>
+                        @elseif($log->tipe == 2)
+                          <a href="{{URL::route('account.show', $log->url)}}">{{$log->deskripsi}}</a>
+                          @elseif($log->tipe == 3)
+                            <a href="{{URL::route('arsip.dokumen', $log->url)}}">{{$log->deskripsi}}</a>
+                        @endif
+                        <p class="no-spacing"><i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($log->created_at, 'l, d M Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
+                      </td>
+                      <td><i class="fa fa-clock-o"></i> {{Carbon::parse($log->created_at)->diffForHumans()}}</td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
             </div>
@@ -127,6 +148,9 @@
   var handleDataTableButtons = function() {
       "use strict";
       0 !== $(".data-table").length && $(".data-table").DataTable({
+        "oLanguage": {
+          "sEmptyTable": "Belum ada aktifitas."
+        },
         dom: "Bfrtip",
         buttons: [{
           extend: "copy",

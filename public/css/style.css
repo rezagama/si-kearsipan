@@ -751,6 +751,7 @@ hr {
 
 .avatar-msg{
   width: 80px;
+  height: 80px;
   border: 1px solid transparent;
   border-radius: 50%;
   vertical-align: inherit;
