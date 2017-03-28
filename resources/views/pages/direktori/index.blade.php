@@ -6,7 +6,7 @@
 <ol class="breadcrumb v-spacing">
   <i class="fa fa-sitemap breadcrumb-ic"></i> <li><a href="{{URL::route('dashboard.index')}}">Dashboard</a></li>
   @if(isset($path))
-  <li><a href="{{URL::route('kategori.index')}}">Kategori Arsip</a></li>
+  <li><a href="{{URL::route('direktori.index')}}">Direktori Arsip</a></li>
     @for ($i = $size; $i >= 0; $i--)
       @if($i == 0)
         <li><a href="{{$path[$i]['url']}}" class="active">{{$path[$i]['title']}}</a></li>
@@ -15,7 +15,7 @@
       @endif
     @endfor
   @else
-    <li><a class="active" href="{{URL::route('kategori.index')}}">Kategori Arsip</a></li>
+    <li><a class="active" href="{{URL::route('direktori.index')}}">Direktori Arsip</a></li>
   @endif
 </ol>
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel">
@@ -28,20 +28,20 @@
       <div class="modal-body">
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1"><i class="fa fa-folder-open"></i></span>
-          <input id="nama" name="nama" type="text" class="form-control" placeholder="Nama Kategori" aria-describedby="basic-addon1" required data-parsley-errors-messages-disabled tabindex="1">
+          <input id="nama" name="nama" type="text" class="form-control" placeholder="Nama Folder" aria-describedby="basic-addon1" required data-parsley-errors-messages-disabled tabindex="1">
         </div>
       </div>
       <div class="modal-footer">
-        <form id="delete" action="{{URL::route('kategori.hapus')}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus folder ini? Semua arsip dalam folder ini akan hilang.');">
+        <form id="delete" action="{{URL::route('direktori.hapus')}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus folder ini? Semua arsip dalam folder ini akan hilang.');">
           <input type="hidden" name="_method" value="DELETE"></input>
           <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
           <input type="hidden" name="id" id="id"></input>
           <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button>
         </form>
-        <form action="{{URL::route('kategori.update')}}" class="inline update" method="POST">
+        <form action="{{URL::route('direktori.update')}}" class="inline update" method="POST">
           <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
           <input type="hidden" name="id" id="id"></input>
-          <input type="hidden" name="kategori" id="kategori"</input>
+          <input type="hidden" name="direktori" id="direktori"</input>
           <input type="hidden" name="parent" id="parent" value="{{$id}}"></input>
           <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Simpan</button>
         </form>
@@ -53,18 +53,18 @@
   <div class="col-sm-6 col-md-3 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Kelola Kategori
+        Direktori
       </div>
-      <form id="form" action="{{URL::route('kategori.store')}}" method="POST" enctype="multipart/form-data">
+      <form id="form" action="{{URL::route('direktori.store')}}" method="POST" enctype="multipart/form-data">
         <div class="panel-body">
           <div class="container-fluid no-spacing">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"><i class="fa fa-folder-open"></i></span>
-              <input id="nama" name="nama" type="text" class="form-control" placeholder="Nama Kategori" aria-describedby="basic-addon1" required data-parsley-errors-messages-disabled tabindex="1">
+              <input id="nama" name="nama" type="text" class="form-control" placeholder="Nama Folder" aria-describedby="basic-addon1" required data-parsley-errors-messages-disabled tabindex="1">
               <input id="parent" name="parent" value="{{$id}}" type="hidden"/>
             </div>
             <div class="input-group pull-right">
-              <button class="btn btn-default btn-sm add" type="submit" tabindex="8"><i class="fa fa-plus"></i> Tambahkan Kategori</a>
+              <button class="btn btn-default btn-sm add" type="submit" tabindex="8"><i class="fa fa-plus"></i> Tambahkan Direktori</a>
             </div>
           </div>
         </div>
@@ -80,21 +80,21 @@
       <div class="panel-body">
         <div class="row list-group">
           @if($count > 0)
-            @foreach ($kategori as $kategori)
-            <div class="item col-xs-4 col-lg-2 col-md-2">
+            @foreach ($direktori as $direktori)
+            <div class="item col-xs-4 col-lg-2 col-md-2 no-spacing">
                 <div class="thumbnail folder">
-                    @if($kategori->level_kategori != 1)
-                      <a data-toggle="modal" href="#edit" data-id="{{$kategori->id_kategori}}" data-title="{{$kategori->nama_kategori}}" data-level="{{$kategori->level_kategori}}" class="btn btn-primary btn-sm btn-folder"><i class="fa fa-edit"></i></a>
+                    @if($direktori->level_direktori != 1)
+                      <a data-toggle="modal" href="#edit" data-id="{{$direktori->id_direktori}}" data-title="{{$direktori->nama_direktori}}" data-level="{{$direktori->level_direktori}}" class="btn btn-primary btn-sm btn-folder"><i class="fa fa-edit"></i></a>
                     @endif
-                    <img class="group list-group-image" src="{{url('img/folder.png')}}" alt="{{$kategori->nama_kategori}}" />
-                    <div class="kategori">
-                        <a href="{{URL::route('kategori.show', $kategori->id_kategori)}}">{{$kategori->nama_kategori}}</a>
+                    <img class="group list-group-image" src="{{url('img/folder.png')}}" alt="{{$direktori->nama_direktori}}" />
+                    <div class="direktori">
+                        <a href="{{URL::route('direktori.show', $direktori->id_direktori)}}">{{$direktori->nama_direktori}}</a>
                     </div>
                 </div>
             </div>
             @endforeach
           @else
-            <p align="center">Belum ada folder di kategori {{$panel}}</p>
+            <p align="center">Belum ada folder di dalam direktori {{$panel}}</p>
           @endif
         </div>
       </div>

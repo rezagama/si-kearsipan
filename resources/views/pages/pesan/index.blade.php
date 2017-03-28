@@ -73,8 +73,8 @@
                               @endif
                             </div>
                           @endif
-                          <p class="no-spacing"><i class="fa fa-calendar"></i> {{Carbon::parse($pesan->created_at)->formatLocalized('%d, %B %Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($pesan->created_at))}} <i class="fa fa-user"></i> <a class="font-brown" href="{{URL::route('account.show', $pesan->id_user)}}">{{$pesan->nama}}</a></p>
-                          <p align="justify">{!! Helpers::trimText($pesan->isi_pesan, 30) !!}</p>
+                          <p class="no-spacing"><i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($pesan->created_at, 'l, d M Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($pesan->created_at))}} <i class="fa fa-user"></i> <a class="font-brown" href="{{URL::route('account.show', $pesan->id_user)}}">{{$pesan->nama}}</a></p>
+                          <p align="justify">{!! Helpers::trimText($pesan->deskripsi_pesan, 30) !!}</p>
                       </td>
                       <td align="center"><i class="fa fa-clock-o"></i> {{Carbon::parse($pesan->created_at)->diffForHumans()}}</td>
                     </tr>

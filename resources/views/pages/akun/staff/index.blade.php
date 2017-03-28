@@ -11,7 +11,7 @@
   <div class="col-sm-4 col-md-4 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Tambah Staff
+        Staff
       </div>
       <form id="form" action="{{URL::route('staff.store')}}" method="POST" enctype="multipart/form-data">
         <div class="panel-body">
@@ -82,6 +82,28 @@
                         <td>{{$staff->nip}}</td>
                         <td>{{$staff->email}}</td>
                         <td>
+                          @if($staff->id_user != Auth::user()->id_user && $staff->email != 'staff@kearsipan.com')
+                            @if($staff->status == 1)
+                            <form action="{{URL::route('admin.status', [$staff->id_user, 2])}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menonaktifkan akun ini?');">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+                              <button type="submit" class="btn btn-warning btn-sm btn-sm-spacing"><i class="fa fa-lock"></i></button>
+                            </form>
+                            @else
+                            <form action="{{URL::route('admin.status', [$staff->id_user, 1])}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin mengaktifkan akun ini?');">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+                              <button type="submit" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-key"></i></button>
+                            </form>
+                            @endif
+                            <form action="{{URL::route('admin.level', [$staff->id_user, 0])}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin merubah akun ini menjadi akun admin?');">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+                              <button type="submit" class="btn btn-info btn-sm btn-sm-spacing"><i class="fa fa-level-up"></i></button>
+                            </form>
+                            <form action="{{URL::route('admin.destroy', $staff->id_user)}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus akun ini?');">
+                              <input type="hidden" name="_method" value="DELETE"></input>
+                              <input type="hidden" name="_token" value="{{csrf_token()}}"></input>
+                              <button type="submit" class="btn btn-danger btn-sm btn-sm-spacing"><i class="fa fa-trash"></i></button>
+                            </form>
+                          @endif
                           <a href="{{URL::route('account.show', $staff->id_user)}}" type="button" class="btn btn-success btn-sm btn-sm-spacing"><i class="fa fa-chevron-right"></i></a>
                         </td>
                       </tr>

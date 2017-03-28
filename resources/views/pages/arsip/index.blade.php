@@ -22,18 +22,18 @@
   <div class="col-sm-6 col-md-3 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Kelola Kategori
+        Direktori
       </div>
-      <form id="form" action="{{URL::route('kategori.store')}}" method="POST" enctype="multipart/form-data">
+      <form id="form" action="{{URL::route('direktori.store')}}" method="POST" enctype="multipart/form-data">
         <div class="panel-body">
           <div class="container-fluid no-spacing">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"><i class="fa fa-folder-open"></i></span>
-              <input id="nama" name="nama" type="text" class="form-control" placeholder="Nama Kategori" aria-describedby="basic-addon1" required data-parsley-errors-messages-disabled tabindex="1">
+              <input id="nama" name="nama" type="text" class="form-control" placeholder="Nama Folder" aria-describedby="basic-addon1" required data-parsley-errors-messages-disabled tabindex="1">
               <input id="parent" name="parent" value="{{$id}}" type="hidden"/>
             </div>
             <div class="input-group pull-right">
-              <button class="btn btn-default btn-sm add" type="submit" tabindex="8"><i class="fa fa-plus"></i> Tambahkan Kategori</a>
+              <button class="btn btn-default btn-sm add" type="submit" tabindex="8"><i class="fa fa-plus"></i> Tambahkan Direktori</a>
             </div>
           </div>
         </div>
@@ -50,18 +50,18 @@
         <div class="row list-group">
           @if($count > 0)
             @foreach ($arsip as $arsip)
-            <div class="item col-xs-4 col-lg-2 col-md-2">
+            <div class="item col-xs-4 col-lg-2 col-md-2 no-spacing">
                 <div class="thumbnail folder">
-                    <a href="{{URL::route('arsip.dokumen', $arsip->id_kategori)}}" class="btn btn-success btn-sm btn-folder"><i class="fa fa-list"></i></a>
-                    <img class="group list-group-image" src="{{url('img/folder.png')}}" alt="{{$arsip->nama_kategori}}" />
-                    <div class="kategori">
-                        <a href="{{URL::route('arsip.show', $arsip->id_kategori)}}">{{$arsip->nama_kategori}}</a>
+                    <a href="{{URL::route('arsip.dokumen', $arsip->id_direktori)}}" class="btn btn-success btn-sm btn-folder"><i class="fa fa-list"></i></a>
+                    <img class="group list-group-image" src="{{url('img/folder.png')}}" alt="{{$arsip->nama_direktori}}" />
+                    <div class="direktori">
+                        <a href="{{URL::route('arsip.show', $arsip->id_direktori)}}">{{$arsip->nama_direktori}}</a>
                     </div>
                 </div>
             </div>
             @endforeach
           @else
-            <p align="center">Belum ada folder di kategori {{$panel}}</p>
+            <p align="center">Belum ada folder di direktori {{$panel}}</p>
           @endif
         </div>
       </div>

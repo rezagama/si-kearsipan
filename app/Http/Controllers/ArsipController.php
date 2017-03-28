@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Helpers\App;
 use App\Http\Requests;
-use App\Kategori;
+use App\Direktori;
 use App\Arsip;
 use Validator;
 use Redirect;
@@ -17,27 +17,27 @@ use DB;
 class ArsipController extends Controller
 {
   public function index(){
-    $arsip = Kategori::where('parent', null)->get();
-    $count = Kategori::where('parent', null)->count();
+    $arsip = Direktori::where('parent', null)->get();
+    $count = Direktori::where('parent', null)->count();
     $title = 'Sistem Informasi Kearsipan / Daftar Arsip';
     return view('pages.arsip.index')->with('arsip', $arsip)
-                ->with('panel', 'Daftar Arsip')
+                ->with('panel', 'Direktori Arsip')
                 ->with('title', $title)
                 ->with('count', $count)
                 ->with('id', null);
   }
 
   public function show($id){
-    $arsip = Kategori::where('parent', $id)->get();
-    $count = Kategori::where('parent', $id)->count();
-    $folder = Kategori::where('id_kategori', $id)->first();
+    $arsip = Direktori::where('parent', $id)->get();
+    $count = Direktori::where('parent', $id)->count();
+    $folder = Direktori::where('id_direktori', $id)->first();
     $path  = App::getDocumentPath($folder);
     $size = App::getPathCount($path);
 
-    $title = 'Sistem Informasi Kearsipan / Daftar Arsip / '.$folder->nama_kategori;
+    $title = 'Sistem Informasi Kearsipan / Daftar Arsip / '.$folder->nama_direktori;
     return view('pages.arsip.index')->with('arsip', $arsip)
                 ->with('path', $path)->with('size', $size)
-                ->with('panel', $folder->nama_kategori)
+                ->with('panel', $folder->nama_direktori)
                 ->with('title', $title)
                 ->with('count', $count)
                 ->with('id', $id);
@@ -45,7 +45,7 @@ class ArsipController extends Controller
 
   public function store(Request $request){
     $judul = $request->input('judul');
-    $kategori = $request->input('kategori');
+    $direktori = $request->input('direktori');
     $noarsip = $request->input('no_arsip');
     $retensi = $request->input('jra');
     $deskripsi = $request->input('deskripsi');
@@ -58,7 +58,7 @@ class ArsipController extends Controller
     if(!$v->fails()){
       if(isset($file)){
         $arsip = new Arsip;
-        $arsip->id_kategori = $kategori;
+        $arsip->id_direktori = $direktori;
         $arsip->id_user = Auth::user()->id_user;
         $arsip->id_arsip = App::generateUniqueID();
         $arsip->no_arsip = $noarsip;
@@ -66,9 +66,9 @@ class ArsipController extends Controller
         $arsip->jadwal_retensi = App::formatDate($retensi);
         $arsip->deskripsi = $deskripsi;
 
-        $kategori = Kategori::where('id_kategori', $kategori)->first();
-        $docpath = preg_replace('/\s+/', '', App::getArchiveRoot($kategori));
-        $arsip->status = App::getDocumentStatus($kategori);
+        $direktori = Direktori::where('id_direktori', $direktori)->first();
+        $docpath = preg_replace('/\s+/', '', App::getArchiveRoot($direktori));
+        $arsip->status = App::getDocumentStatus($direktori);
 
         $path = 'dokumen/'.strtolower($docpath);
         $filename = App::getFileName($file, $judul, $path);
@@ -77,7 +77,15 @@ class ArsipController extends Controller
         }
 
         if($arsip->save()){
-          return Redirect::back()->with('info', $judul.' '.' berhasil ditambahkan ke dalam folder '. $kategori->nama_kategori);
+          $data = array(
+            'deskripsi' => Auth::user()->nama.' menambahkan '.$judul.' ke dalam direktori '.$direktori->nama_direktori.'.',
+            'url' => $arsip->id_arsip,
+            'option' => 'arsip'
+          );
+
+          App::saveSystemLog($data);
+
+          return Redirect::back()->with('info', $judul.' '.' berhasil ditambahkan ke dalam folder '. $direktori->nama_direktori);
         } else {
           return Redirect::back()->with('error', 'Terjadi kesalahan dalam sistem. Harap coba beberapa saat lagi.');
         }
@@ -94,16 +102,16 @@ class ArsipController extends Controller
 
     $judul = $request->input('judul');
     $noarsip = $request->input('no_arsip');
-    $id_kategori = $request->input('kategori');
+    $id_direktori = $request->input('root');
     $retensi = $request->input('jra');
     $deskripsi = $request->input('deskripsi');
     $file = $request->file('dokumen');
 
-    $id = $request->input('root');
-    $root = Kategori::where('id_kategori', $id)->first();
+    $input = Direktori::where('id_direktori', $id_direktori)->first();
 
-    $kategori = Kategori::where('id_kategori', $arsip->id_kategori)->first();
-    $archive = App::getArchiveRootId($kategori);
+    $direktori = Direktori::where('id_direktori', $arsip->id_direktori)->first();
+    $archive = App::getArchiveRootId($direktori);
+    $parent = $direktori->parent;
 
     if($arsip->no_arsip == $noarsip){
       $v = Validator::make($request->all(), [
@@ -121,15 +129,17 @@ class ArsipController extends Controller
       $arsip->deskripsi = $deskripsi;
       $arsip->jadwal_retensi = App::formatDate($retensi);
 
-      if($archive != $root->id_kategori){
-        $folder = Kategori::where('id_kategori', $id_kategori)->first();
-        $arsip->id_kategori = App::copyArchiveFolder($folder, $root);
-        $arsip->status = $root->tipe_kategori;
+      if($parent != null){
+        $arsip->id_direktori = App::copyArchiveFolder($direktori, $input);
+        $arsip->status = $input->tipe_direktori;
+      } else {
+        $arsip->id_direktori = $id_direktori;
+        $arsip->status = $input->tipe_direktori;
       }
 
       if(isset($file)){
         App::hapusFileArsip($arsip);
-        $docpath = preg_replace('/\s+/', '', App::getArchiveRoot($kategori));
+        $docpath = preg_replace('/\s+/', '', App::getArchiveRoot($direktori));
         $path = 'dokumen/'.strtolower($docpath);
         $filename = App::getFileName($file, $judul, $path);
         if($file->move($path, $filename)){
@@ -149,17 +159,18 @@ class ArsipController extends Controller
 
   public function dokumen($id){
     $arsip = DB::table('t_arsip')
-            ->where('id_kategori', $id)
+            ->where('id_direktori', $id)
             ->join('t_akun', 't_arsip.id_user', '=', 't_akun.id_user')
             ->select('t_arsip.*', 't_akun.nama')
+            ->orderBy('t_arsip.created_at', 'DESC')
             ->get();
-    $kategori = Kategori::where('parent', $id)->get();
-    $folder = Kategori::where('id_kategori', $id)->first();
+    $direktori = Direktori::where('parent', $id)->get();
+    $folder = Direktori::where('id_direktori', $id)->first();
     $path  = App::getArchivePath($folder);
     $size = App::getPathCount($path);
 
-    $title = 'Sistem Informasi Kearsipan / Arsip / '.$folder->nama_kategori;
-    return view('pages.arsip.dokumen')->with('arsip', $arsip)->with('kategori', $kategori)
+    $title = 'Sistem Informasi Kearsipan / Arsip / '.$folder->nama_direktori;
+    return view('pages.arsip.dokumen')->with('arsip', $arsip)->with('direktori', $direktori)
                 ->with('path', $path)->with('size', $size)
                 ->with('folder', $folder)
                 ->with('title', $title)
@@ -170,17 +181,18 @@ class ArsipController extends Controller
     $arsip = DB::table('t_arsip')
             ->where('id_arsip', $id)
             ->join('t_akun', 't_arsip.id_user', '=', 't_akun.id_user')
-            ->join('t_kategori', 't_arsip.id_kategori', '=', 't_kategori.id_kategori')
-            ->select('t_arsip.*', 't_akun.nama', 't_akun.id_user', 't_kategori.nama_kategori')
+            ->join('t_direktori', 't_arsip.id_direktori', '=', 't_direktori.id_direktori')
+            ->select('t_arsip.*', 't_akun.nama', 't_akun.id_user', 't_direktori.nama_direktori')
             ->first();
     $log = DB::table('t_riwayat')
             ->where('id_arsip', $id)
             ->join('t_log', 't_riwayat.id_log', '=', 't_log.id_log')
             ->join('t_akun', 't_log.id_user', '=', 't_akun.id_user')
             ->select('t_log.*', 't_akun.foto')
+            ->orderBy('t_log.created_at', 'DESC')
             ->get();
-    $kategori = Kategori::where('parent', $id)->get();
-    $folder = Kategori::where('id_kategori', $arsip->id_kategori)->first();
+    $direktori = Direktori::where('parent', $id)->get();
+    $folder = Direktori::where('id_direktori', $arsip->id_direktori)->first();
     $path  = App::getArchivePath($folder);
     $size = App::getPathCount($path);
 
@@ -194,23 +206,24 @@ class ArsipController extends Controller
     $arsip = DB::table('t_arsip')
             ->where('id_arsip', $id)
             ->join('t_akun', 't_arsip.id_user', '=', 't_akun.id_user')
-            ->join('t_kategori', 't_arsip.id_kategori', '=', 't_kategori.id_kategori')
-            ->select('t_arsip.*', 't_akun.nama', 't_akun.id_user', 't_kategori.nama_kategori')
+            ->join('t_direktori', 't_arsip.id_direktori', '=', 't_direktori.id_direktori')
+            ->select('t_arsip.*', 't_akun.nama', 't_akun.id_user', 't_direktori.nama_direktori')
             ->first();
     $log = DB::table('t_riwayat')
             ->where('id_arsip', $id)
             ->join('t_log', 't_riwayat.id_log', '=', 't_log.id_log')
             ->join('t_akun', 't_log.id_user', '=', 't_akun.id_user')
             ->select('t_log.*', 't_akun.foto')
+            ->orderBy('t_log.created_at', 'DESC')
             ->get();
-    $kategori = Kategori::where('parent', null)->get();
-    $folder = Kategori::where('id_kategori', $arsip->id_kategori)->first();
+    $direktori = Direktori::where('parent', null)->get();
+    $folder = Direktori::where('id_direktori', $arsip->id_direktori)->first();
     $root = App::getArchiveRootId($folder);
     $path = App::getArchivePath($folder);
     $size = App::getPathCount($path);
 
     return view('pages.arsip.edit')->with('arsip', $arsip)
-                ->with('kategori', $kategori)
+                ->with('direktori', $direktori)
                 ->with('root', $root)
                 ->with('log', $log)
                 ->with('path', $path)
@@ -234,6 +247,15 @@ class ArsipController extends Controller
     $no = $arsip->no_arsip;
     if($arsip){
       if(App::deleteArsip($arsip)){
+        $data = array(
+          'deskripsi' => Auth::user()->nama.' telah mengahpus arsip '.$judul.' dengan nomor arsip '.$no.'.',
+          'url' => null,
+          'option' => 'arsip',
+          'delete' => true
+        );
+
+        App::saveSystemLog($data);
+
         return Redirect::back()->with('info', $judul. ' dengan nomor arsip '.$no.' berhasil dihapus.');
       } else {
         return Redirect::back()->with('error', 'Terjadi kesalahan pada sistem. Harap coba beberapa saat lagi.');

@@ -36,7 +36,7 @@
             <label>No. Arsip</label>
             <p>{{$arsip->no_arsip}}</p>
             <label>Jadwal Retensi</label>
-            <p>{{date('D, d M Y', strtotime($arsip->jadwal_retensi))}}</p>
+            <p>{{Helpers::formatLocalDate($arsip->jadwal_retensi, 'l, d M Y')}}</p>
           </div>
         </div>
         <hr/>
@@ -47,9 +47,9 @@
               <a href="{{URL::route('account.show', $arsip->id_user)}}">{{$arsip->nama}}</a>
             </p>
             <label>Folder</label>
-            <p>{{$arsip->nama_kategori}}</p>
+            <p>{{$arsip->nama_direktori}}</p>
             <label>Ditambahkan Pada</label>
-            <p>{{date('D, d M Y', strtotime($arsip->created_at))}}</p>
+            <p>{{Helpers::formatLocalDate($arsip->created_at, 'l, d M Y')}}</p>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
             <label>Deskripsi</label>
@@ -91,10 +91,11 @@
             <div class="tab-content">
               <table class="table table-hover data-table">
                   <thead>
-                    <th>
-                      <td class="th-md"></td>
+                    <tr>
                       <td></td>
-                    </th>
+                      <td class="th-log"></td>
+                      <td></td>
+                    </tr>
                   </thead>
                   <tbody>
                     @foreach($log as $log)
@@ -104,7 +105,7 @@
                       </td>
                       <td>
                         {{$log->deskripsi}}
-                        <p class="no-spacing"><i class="fa fa-calendar"></i> {{date('d/M/Y', strtotime($log->created_at))}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
+                        <p class="no-spacing"><i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($log->created_at, 'l, d M Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
                       </td>
                       <td><i class="fa fa-clock-o"></i> {{Carbon::parse($log->created_at)->diffForHumans()}}</td>
                     </tr>

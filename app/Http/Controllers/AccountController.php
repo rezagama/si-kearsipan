@@ -9,6 +9,7 @@ use App\Helpers\App;
 use App\User;
 use Redirect;
 use Validator;
+use Auth;
 use DB;
 
 class AccountController extends Controller
@@ -19,6 +20,7 @@ class AccountController extends Controller
             ->where('t_log.id_user', $id)
             ->join('t_akun', 't_log.id_user', '=', 't_akun.id_user')
             ->select('t_log.*', 't_akun.foto')
+            ->orderBy('t_log.created_at', 'DESC')
             ->get();
 
     return view('pages.akun.detail')->with('user', $user)
@@ -31,6 +33,7 @@ class AccountController extends Controller
             ->where('t_log.id_user', $id)
             ->join('t_akun', 't_log.id_user', '=', 't_akun.id_user')
             ->select('t_log.*', 't_akun.foto')
+            ->orderBy('t_log.created_at', 'DESC')
             ->get();
 
     return view('pages.akun.edit')->with('user', $user)
@@ -102,6 +105,26 @@ class AccountController extends Controller
       }
 
       if($user->save()){
+        if($user->id_user != Auth::user()->id_user){
+          if($password != ''){
+            $data = array(
+              'deskripsi' => Auth::user()->nama.' telah melakukan perubahan password pada akun '. $user->nama.' ['.$user->nip.'].',
+              'url' => $user->id_user,
+              'option' => 'akun'
+            );
+
+            App::saveSystemLog($data);
+          }
+
+          $data = array(
+            'deskripsi' => Auth::user()->nama.' telah melakukan perubahan profil pada akun '. $user->nama.' ['.$user->nip.'].',
+            'url' => $user->id_user,
+            'option' => 'akun'
+          );
+
+          App::saveSystemLog($data);
+        }
+
         return Redirect::back()->with('info', 'Akun '. $nama.' berhasil diperbarui.');
       } else {
         return Redirect::back()->with('error', 'Terjadi kesalahan dalam sistem. Harap coba beberapa saat lagi.');

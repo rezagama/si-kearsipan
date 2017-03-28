@@ -9,6 +9,7 @@ use App\Helpers\App;
 use App\User;
 use Validator;
 use Redirect;
+use Auth;
 
 class StaffController extends Controller
 {
@@ -54,6 +55,14 @@ class StaffController extends Controller
       }
 
       if($user->save()){
+        $data = array(
+          'deskripsi' => Auth::user()->nama.' menambahkan '. $nama.' ['.$nip.'] sebagai Staff.',
+          'url' => $user->id_user,
+          'option' => 'akun'
+        );
+
+        App::saveSystemLog($data);
+
         return Redirect::back()->with('info', $nama.' '.' berhasil ditambahkan sebagai staff.'.' '.$password);
       } else {
         return Redirect::back()->with('error', 'Terjadi kesalahan dalam sistem. Harap coba beberapa saat lagi.');

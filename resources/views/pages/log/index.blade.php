@@ -20,8 +20,8 @@
           <p class="font-sm">aktifitas</p>
         </div>
         <div class="col-md-6" align="center">
-          <label>Kategori</label>
-          <h3 class="no-spacing">{{$kategori}}</h3>
+          <label>Direktori</label>
+          <h3 class="no-spacing">{{$direktori}}</h3>
           <p class="font-sm">aktifitas</p>
         </div>
       </div>
@@ -48,10 +48,11 @@
             <div class="tab-content">
               <table class="table table-hover data-table">
                   <thead>
-                    <th>
-                      <td class="th-md"></td>
+                    <tr>
                       <td></td>
-                    </th>
+                      <td class="th-md"></td>
+                      <td class="th-time"></td>
+                    </tr>
                   </thead>
                   <tbody>
                     @foreach($log as $log)
@@ -60,15 +61,17 @@
                         <img src="{{url($log->foto)}}" class="avatar-xs" alt="{{$log->deskripsi}}">
                       </td>
                       <td>
-                        @if($log->tipe == 0)
+                        @if($log->tipe == 0 || $log->url == null)
                           <p>{{$log->deskripsi}}</p>
                         @elseif($log->tipe == 1)
-                          <?php $riwayat = DB::table('t_riwayat')->where('id_log', $log->id_log)->first(); ?>
+                          <?php
+                            $riwayat = DB::table('t_riwayat')->where('id_log', $log->id_log)->first();
+                          ?>
                           <a href="{{URL::route('arsip.detail', $riwayat->id_arsip)}}">{{$log->deskripsi}}</a>
                         @elseif($log->tipe == 2)
                           <a href="{{URL::route('account.show', $log->url)}}">{{$log->deskripsi}}</a>
-                          @elseif($log->tipe == 3)
-                            <a href="{{URL::route('arsip.dokumen', $log->url)}}">{{$log->deskripsi}}</a>
+                        @elseif($log->tipe == 3)
+                          <a href="{{URL::route('arsip.dokumen', $log->url)}}">{{$log->deskripsi}}</a>
                         @endif
                         <p class="no-spacing"><i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($log->created_at, 'd M Y')}} <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($log->created_at))}}</p>
                       </td>

@@ -61,10 +61,10 @@
           </ul>
 				</li>
 				@if(Auth::user()->level == 0)
-        <li id="kategori">
-          <a href="{{URL::route('kategori.index')}}">
+        <li id="direktori">
+          <a href="{{URL::route('direktori.index')}}">
           <i class="fa fa-list"></i>
-          Kategori Arsip </a>
+          Direktori Arsip </a>
         </li>
         @endif
         <li id="pengumuman">
@@ -73,7 +73,7 @@
 					Pengumuman </a>
 				</li>
         <li id="statistik">
-					<a href="{{URL::route('kategori.index')}}">
+					<a href="{{URL::route('statistik.index')}}">
 					<i class="fa fa-line-chart"></i>
 					Statistik </a>
 				</li>

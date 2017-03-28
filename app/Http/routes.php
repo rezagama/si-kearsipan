@@ -14,12 +14,12 @@
 Route::get('/', [
   'uses' => 'LoginController@index',
   'as' => 'login.index'
-]);
+])->middleware('guest');
 
 Route::post('/login', [
   'uses' => 'LoginController@login',
   'as' => 'user.login'
-])->middleware('web');
+]);
 
 Route::get('/logout', [
   'uses' => 'LoginController@logout',
@@ -191,6 +191,16 @@ Route::group(['middleware' => ['auth', 'status']], function () {
     'uses' => 'PengumumanController@delete',
     'as' => 'pengumuman.delete'
   ]);
+
+  Route::get('/statistik', [
+    'uses' => 'StatistikController@index',
+    'as' => 'statistik.index'
+  ]);
+
+  Route::get('/statistik/jenis/arsip', [
+    'uses' => 'StatistikController@jumlaharsip',
+    'as' => 'statistik.jumlaharsip'
+  ]);
 });
 
 Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
@@ -219,34 +229,34 @@ Route::group(['middleware' => ['auth', 'admin', 'status']], function () {
     'as' => 'admin.destroy'
   ]);
 
-  Route::get('/kategori/arsip', [
-      'uses' => 'KategoriController@index',
-      'as' => 'kategori.index'
+  Route::get('/direktori/arsip', [
+      'uses' => 'DirektoriController@index',
+      'as' => 'direktori.index'
   ]);
 
-  Route::get('/kategori/arsip/folder/', [
-      'uses' => 'KategoriController@index',
-      'as' => 'kategori.index'
+  Route::get('/direktori/arsip/folder/', [
+      'uses' => 'DirektoriController@index',
+      'as' => 'direktori.index'
   ]);
 
-  Route::get('/kategori/arsip/{id}/folder', [
-      'uses' => 'KategoriController@show',
-      'as' => 'kategori.show'
+  Route::get('/direktori/arsip/{id}/folder', [
+      'uses' => 'DirektoriController@show',
+      'as' => 'direktori.show'
   ]);
 
-  Route::post('/kategori/arsip/folder/store', [
-      'uses' => 'KategoriController@store',
-      'as' => 'kategori.store'
+  Route::post('/direktori/arsip/folder/store', [
+      'uses' => 'DirektoriController@store',
+      'as' => 'direktori.store'
   ]);
 
-  Route::post('/kategori/arsip/folder/update', [
-      'uses' => 'KategoriController@update',
-      'as' => 'kategori.update'
+  Route::post('/direktori/arsip/folder/update', [
+      'uses' => 'DirektoriController@update',
+      'as' => 'direktori.update'
   ]);
 
-  Route::delete('/kategori/arsip/folder/hapus', [
-      'uses' => 'KategoriController@destroy',
-      'as' => 'kategori.hapus'
+  Route::delete('/direktori/arsip/folder/hapus', [
+      'uses' => 'DirektoriController@destroy',
+      'as' => 'direktori.hapus'
   ]);
 
   Route::delete('/arsip/folder/dokumen/{id}/hapus', [

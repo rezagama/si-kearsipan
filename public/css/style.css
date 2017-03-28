@@ -467,8 +467,8 @@ body{
   text-align: center;
 }
 
-.rank{
-  height: 400px;
+.rank > .panel-content table{
+  margin: 0;
 }
 
 .chevron-accordion-toggle:after {
@@ -639,9 +639,8 @@ hr {
   font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 
-.folder > .kategori {
+.folder > .direktori {
   text-align: center;
-  padding: 9px;
   color: #333;
 }
 
@@ -652,8 +651,8 @@ hr {
 }
 
 .btn-folder{
-  top: 25px;
-  right: 50px;
+  top: 14px;
+  right: 43px;
   padding: 5px;
   min-width: 27px;
   min-height: 15px;
@@ -858,4 +857,20 @@ hr {
 .author{
   font-size: 11px;
   margin-top: -5px;
+}
+
+.th-date{
+  min-width: 147px;
+}
+
+.th-log{
+  width: 525px;
+}
+
+.th-time{
+  min-width: 155px;
+}
+
+.text-color{
+  color: #434348;
 }

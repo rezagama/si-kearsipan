@@ -76,7 +76,7 @@
                             </div>
                             @endif
                           </div>
-                          <p align="justify" class="vertical-spacing-sm">{!! $isi_pesan->balasan !!}</p>
+                          <p align="justify" class="vertical-spacing-sm">{!! $isi_pesan->isi_pesan !!}</p>
                           <div class="container-fluid fit-width no-padding vertical-spacing-sm">
                             <div class="col-md-6 no-padding" align="left">
                               <i class="fa fa-calendar"></i> {{Carbon::parse($isi_pesan->created_at)->formatLocalized('%d, %B %Y')}}
@@ -114,7 +114,7 @@
                               @endif
                             </div>
                             <div class="container-fluid pull-right vertical-spacing-sm no-padding">
-                                <p align="justify" class="no-spacing">{!! $isi_pesan->balasan !!}</p>
+                                <p align="justify" class="no-spacing">{!! $isi_pesan->isi_pesan !!}</p>
                             </div>
                             <div class="container-fluid fit-width no-padding vertical-spacing-sm">
                               <div class="col-md-6 no-padding vertical-spacing-sm" align="left">
@@ -132,7 +132,7 @@
                                 @endif
                               </div>
                               <div class="col-md-6 no-padding" align="right">
-                                <i class="fa fa-calendar"></i> {{Carbon::parse($isi_pesan->created_at)->formatLocalized('%d, %B %Y')}}
+                                <i class="fa fa-calendar"></i> {{Helpers::formatLocalDate($isi_pesan->created_at, 'l, d M Y')}}
                                 <i class="fa fa-clock-o"></i> {{date('H:i', strtotime($isi_pesan->created_at))}}
                               </div>
                             </div>
@@ -149,7 +149,7 @@
                           <input name="_token" type="hidden" value="{{csrf_token()}}"/>
                           <div id="reply-field">
                           </div>
-                          <textarea id="balasan" name="balasan" style="display: none;" required data-parsley-errors-messages-disabled></textarea>
+                          <textarea id="isi_pesan" name="isi_pesan" style="display: none;" required data-parsley-errors-messages-disabled></textarea>
                           <button type="submit "class="btn btn-default pull-right vertical-spacing-sm"> <i class="fa fa-paper-plane"></i> Kirim</button>
                         </form>
                       </td>

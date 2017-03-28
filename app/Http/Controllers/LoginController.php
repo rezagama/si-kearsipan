@@ -39,10 +39,10 @@ class LoginController extends Controller
             return Redirect::route('dashboard.index');
           }
         }else{
-          return Redirect::back()->with('error', "Password salah.");
+          return Redirect::back()->with('error', 'Password salah.');
         }
       }else{
-        return Redirect::back()->with('error', "Akun tidak ditemukan.");
+        return Redirect::back()->with('error', 'Akun tidak ditemukan.');
       }
     }
 

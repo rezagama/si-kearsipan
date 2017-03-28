@@ -9,6 +9,7 @@ use App\Helpers\App;
 use App\User;
 use Validator;
 use Redirect;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -54,6 +55,15 @@ class AdminController extends Controller
         }
 
         if($user->save()){
+
+          $data = array(
+            'deskripsi' => Auth::user()->nama.' menambahkan '. $nama.' ['.$nip.'] sebagai Admin.',
+            'url' => $user->id_user,
+            'option' => 'akun'
+          );
+
+          App::saveSystemLog($data);
+
           return Redirect::back()->with('info', $nama.' '.' berhasil ditambahkan sebagai Admin.'.' '.$password);
         } else {
           return Redirect::back()->with('error', 'Terjadi kesalahan dalam sistem. Harap coba beberapa saat lagi.');
@@ -69,9 +79,21 @@ class AdminController extends Controller
       if($user){
         $msg = App::getStatusMessage($user, $status);
         $user->status = $status;
-        $user->save();
 
-        return Redirect::back()->with('info', $msg);
+        if($user->save()){
+          $data = array(
+            'deskripsi' => Auth::user()->nama.' telah '.App::getUserStatus($status).' akun '. $user->nama.' ['.$user->nip.'].',
+            'url' => $user->id_user,
+            'option' => 'akun'
+          );
+
+          App::saveSystemLog($data);
+
+          return Redirect::back()->with('info', $msg);
+        } else {
+          return Redirect::back()->with('error', 'Terjadi kesalahan sistem, harap coba beberapa saat lagi.');
+        }
+
       } else {
         return Redirect::back()->with('error', 'Akun tidak ditemukan.');
       }
@@ -79,13 +101,24 @@ class AdminController extends Controller
 
     public function level($id, $level){
       $user = User::where('id_user', $id)->first();
-
       if($user){
         $msg = App::getLevelMessage($user, $level);
         $user->level = $level;
-        $user->save();
 
-        return Redirect::back()->with('info', $msg);
+        if($user->save()){
+          $data = array(
+            'deskripsi' => Auth::user()->nama.' merubah akun '. $user->nama.' ['.$user->nip.'] menjadi '. App::getUserRole($level) .'.',
+            'url' => $user->id_user,
+            'option' => 'akun'
+          );
+
+          App::saveSystemLog($data);
+
+          return Redirect::back()->with('info', $msg);
+        } else {
+          return Redirect::back()->with('error', 'Terjadi kesalahan sistem, harap coba beberapa saat lagi.');
+        }
+
       } else {
         return Redirect::back()->with('error', 'Akun tidak ditemukan.');
       }
@@ -93,9 +126,18 @@ class AdminController extends Controller
 
     public function destroy($id){
       $user = User::where('id_user', $id)->first();
+      $nama = $user->nama;
       $nip = $user->nip;
       if($user){
         if(App::deleteUser($user)){
+          $data = array(
+            'deskripsi' => Auth::user()->nama.' menghapus akun '. $nama.' ['.$nip.'].',
+            'url' => null,
+            'option' => 'akun'
+          );
+
+          App::saveSystemLog($data);
+
           return Redirect::back()->with('info', 'Akun dengan NIP '.$nip.' berhasil dihapus.');
         } else {
           return Redirect::back()->with('error', 'Terjadi kesalahan sistem, harap coba beberapa saat lagi.');

@@ -60,11 +60,11 @@
               <span class="input-group-addon" id="basic-addon1"><i class="fa fa-folder-open"></i></span>
               <select id="root" name="root" class="form-control" aria-describedby="basic-addon1" tabindex="4" required data-parsley-errors-messages-disabled>
                 <option value="">Kategori Arsip</option>
-                @foreach($kategori as $kategori)
-                  @if($kategori->id_kategori == $root)
-                    <option value="{{$kategori->id_kategori}}" selected="selected">{{$kategori->nama_kategori}}</option>
+                @foreach($direktori as $direktori)
+                  @if($direktori->id_direktori == $root)
+                    <option value="{{$direktori->id_direktori}}" selected="selected">{{$direktori->nama_direktori}}</option>
                   @else
-                    <option value="{{$kategori->id_kategori}}">{{$kategori->nama_kategori}}</option>
+                    <option value="{{$direktori->id_direktori}}">{{$direktori->nama_direktori}}</option>
                   @endif
                 @endforeach
               </select>
@@ -85,10 +85,10 @@
                 </div>
               </div>
               <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-                <input type="hidden" name="kategori" value="{{$arsip->id_kategori}}"/>
+                <input type="hidden" name="direktori" value="{{$arsip->id_direktori}}"/>
               <div class="col-md-5 no-spacing">
                   <div class="input-group pull-right">
-                    <button class="btn btn-default add pull-right" type="submit" tabindex="8"><i class="fa fa-plus"></i> Simpan Perubahan</a>
+                    <button class="btn btn-default add pull-right" type="submit" tabindex="8"><i class="fa fa-check"></i> Simpan</a>
                   </div>
               </div>
             </div>

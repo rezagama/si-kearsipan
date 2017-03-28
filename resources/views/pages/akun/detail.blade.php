@@ -92,10 +92,11 @@
             <div class="tab-content">
               <table class="table table-hover data-table">
                   <thead>
-                    <th>
-                      <td class="th-md"></td>
+                    <tr>
                       <td></td>
-                    </th>
+                      <td class="th-md"></td>
+                      <td class="th-time"></td>
+                    </tr>
                   </thead>
                   <tbody>
                     @foreach($log as $log)

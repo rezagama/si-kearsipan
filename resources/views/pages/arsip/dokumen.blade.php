@@ -73,7 +73,7 @@
                   </label>
               </div>
             </div>
-            <input type="hidden" name="kategori" value="{{$folder->id_kategori}}"/>
+            <input type="hidden" name="direktori" value="{{$folder->id_direktori}}"/>
             <input type="hidden" name="_token" value="{{csrf_token()}}"/>
             <div class="col-md-5 no-spacing">
                 <div class="input-group pull-right">
@@ -88,7 +88,7 @@
   <div class="col-sm-8 col-md-8 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        {{$folder->nama_kategori}}
+        {{$folder->nama_direktori}}
       </div>
       <div class="panel-body">
         <table class="table table-hover data-table">
@@ -96,9 +96,8 @@
               <tr role="row">
                 <th class="th-sm">No.</th>
                 <th>No. Arsip</th>
-                <th class="th-md">Judul</th>
-                <th>Jadwal Retensi</th>
-                <th>Pencipta Arsip</th>
+                <th>Judul</th>
+                <th class="th-date">Jadwal Retensi</th>
                 <th hidden></th>
               </tr>
             </thead>
@@ -109,8 +108,7 @@
                   <td><div class="checkbox"> <input id="select" name="select" type="checkbox" value="{{$arsip->id_user}}" class="inline"> {{$i++}}</div>.</td>
                   <td>{{$arsip->no_arsip}}</td>
                   <td>{{$arsip->judul}}</td>
-                  <td>{{date('D, d M Y', strtotime($arsip->jadwal_retensi))}}</td>
-                  <td>{{$arsip->nama}}</td>
+                  <td>{{Helpers::formatLocalDate($arsip->jadwal_retensi, 'l, d M Y')}}</td>
                   <td>
                     @if(Auth::user()->level == 0)
                     <form action="{{URL::route('arsip.hapus', $arsip->id_arsip)}}" class="inline" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus arsip ini?');">

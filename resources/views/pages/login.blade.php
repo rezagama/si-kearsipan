@@ -15,12 +15,6 @@
         <div class="top-content">
             <div class="inner-bg">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-2 text">
-                              <h1>Selamat Datang di Sistem Informasi Kearsipan</h1>
-                              <h1>Daerah Istimewa Yogyakarta</h1>
-                        </div>
-                    </div>
                     <div class="row form-box">
                       @if(Session::has('error'))
                       <div class="alert alert-warning fade in alert-dismissable">
@@ -37,26 +31,21 @@
                       <div class="col-sm-8">
                         <div id="carousel" class="carousel slide pengumuman" data-ride="carousel">
                           <ol class="carousel-indicators">
+                            <li data-target="#carousel" data-slide-to="0" class="active"></li>
                             @for($i=0;$i<$jumlah_pengumuman;$i++)
-                              @if($i == 0)
-                                <li data-target="#carousel" data-slide-to="{{$i}}" class="active"></li>
-                              @else
-                                <li data-target="#carousel" data-slide-to="{{$i}}"></li>
-                              @endif
+                              <li data-target="#carousel" data-slide-to="{{$i+1}}"></li>
                             @endfor
                           </ol>
                           <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                              <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
+                              <span class="text-pengumuman">
+                                <p class="judul-pengumuman no-spacing"><span class="font-yellow cursor-pointer">Selamat Datang</span></p>
+                                <div class="deskripsi-pengumuman">Selamat Datang di Sistem Informasi Kearsipan Badan Perpustakaan dan Arsip Daerah Daerah Istimewa Yogyakarta.</div>
+                              </span>
+                              <span class="transparent-bg"/>
+                            </div>
                             @foreach($pengumuman as $key => $pengumuman)
-                              @if($key == 0)
-                              <div class="item active">
-                                <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
-                                <span class="text-pengumuman">
-                                  <p class="judul-pengumuman no-spacing"><a href="{{URL::route('pengumuman.post', $pengumuman->id_pengumuman)}}" class="font-yellow cursor-pointer">{{$pengumuman->judul_pengumuman}}</a></p>
-                                  <div class="deskripsi-pengumuman">{!! Helpers::trimText($pengumuman->isi_pengumuman, 25) !!}</div>
-                                </span>
-                                <span class="transparent-bg"/>
-                              </div>
-                              @else
                               <div class="item">
                                 <img src="{{url('img/background-pengumuman.jpg')}}" alt="pengumuman">
                                 <span class="text-pengumuman">
@@ -65,7 +54,6 @@
                                 </span>
                                 <span class="transparent-bg"/>
                               </div>
-                              @endif
                             @endforeach
                           </div>
                         </div>

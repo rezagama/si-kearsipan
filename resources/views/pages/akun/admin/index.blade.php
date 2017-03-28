@@ -11,7 +11,7 @@
   <div class="col-sm-4 col-md-4 col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Tambah Admin
+        Admin
       </div>
       <form id="form" action="{{URL::route('admin.store')}}" method="POST" enctype="multipart/form-data">
         <div class="panel-body">

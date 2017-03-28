@@ -3,12 +3,15 @@
    *
    */
   namespace App\Helpers;
-  use App\Helpers\App;
-  use App\Kategori;
-  use App\Arsip;
   use Carbon\Carbon;
-  use Session;
+  use App\Helpers\App;
+  use App\Direktori;
+  use App\Riwayat;
+  use App\Arsip;
+  use App\Log;
   use Redirect;
+  use Session;
+  use Auth;
   use View;
   use File;
   use URL;
@@ -103,6 +106,32 @@
       return $msg;
     }
 
+    public static function getUserStatus($status){
+      switch ($status) {
+        case 1:
+          $status = 'mengaktifkan';
+          break;
+        case 2:
+          $status = 'menonaktifkan';
+          break;
+      }
+
+      return $status;
+    }
+
+    public static function getUserRole($level){
+      switch ($level) {
+        case 1:
+          $level = 'Staff';
+          break;
+
+        default:
+          $level = 'Admin';
+          break;
+      }
+      return $level;
+    }
+
     public static function isValueNull($val){
       if($val == ''){
         return $val = null;
@@ -112,11 +141,11 @@
 
     public static function getDocumentStatus($folder){
       $parent = $folder->parent;
-      $status = $folder->nama_kategori;
+      $status = $folder->nama_direktori;
 
       while ($parent != null) {
-        $parent = Kategori::where('id_kategori', $parent)->first();
-        $status = $parent->nama_kategori;
+        $parent = Direktori::where('id_direktori', $parent)->first();
+        $status = $parent->nama_direktori;
         $parent = $parent->parent;
       }
 
@@ -144,18 +173,18 @@
       $parent = $folder->parent;
 
       $data = array(
-        'title' => $folder->nama_kategori,
-        'url' => URL::route('arsip.show', $folder->id_kategori)
+        'title' => $folder->nama_direktori,
+        'url' => URL::route('arsip.show', $folder->id_direktori)
       );
 
       array_push($path, $data);
 
       while ($parent != null) {
-        $parent = Kategori::where('id_kategori', $parent)->first();
+        $parent = Direktori::where('id_direktori', $parent)->first();
 
         $data = array(
-          'title' => $parent->nama_kategori,
-          'url' => URL::route('arsip.show', $parent->id_kategori)
+          'title' => $parent->nama_direktori,
+          'url' => URL::route('arsip.show', $parent->id_direktori)
         );
 
         array_push($path, $data);
@@ -166,23 +195,66 @@
       return $path;
     }
 
+    public static function saveSystemLog($data){
+      $option = $data['option'];
+
+      $log = new Log;
+      $log->id_log = App::generateUniqueID();
+      $log->id_user = Auth::user()->id_user;
+      $log->deskripsi = $data['deskripsi'];
+      $log->url = $data['url'];
+      $log->tipe = App::getLogType($option);
+      $save = $log->save();
+
+      if($option == 'arsip' && $data['url'] != null){
+        $riwayat = new Riwayat;
+        $riwayat->id_arsip = $data['url'];
+        $riwayat->id_log = $log->id_log;
+        $riwayat->save();
+      }
+
+      return $save;
+    }
+
+    public static function getLogType($option){
+      $logtype = 1;
+      switch ($option) {
+        case 'arsip':
+          $logtype = 1;
+          break;
+        case 'akun':
+          $logtype = 2;
+          break;
+        case 'direktori':
+          $logtype = 3;
+          break;
+        case 'user':
+          $logtype = 4;
+          break;
+        default:
+          $logtype = 0;
+          break;
+      }
+      return $logtype;
+    }
+
     public static function getArchivePath($folder){
       $path = array();
       $parent = $folder->parent;
 
       $data = array(
-        'title' => $folder->nama_kategori,
-        'url' => $folder->id_kategori
+        'title' => $folder->nama_direktori,
+        'url' => $folder->id_direktori
       );
 
       array_push($path, $data);
 
       while ($parent != null) {
-        $parent = Kategori::where('id_kategori', $parent)->first();
+        $parent = Direktori::where('id_direktori', $parent)->first();
 
         $data = array(
-          'title' => $parent->nama_kategori,
-          'url' => $parent->id_kategori
+          'title' => $parent->nama_direktori,
+          'url' => $parent->id_direktori
         );
 
         array_push($path, $data);
@@ -194,12 +266,12 @@
     }
 
     public static function getArchiveRoot($folder){
-      $root = $folder->nama_kategori;
+      $root = $folder->nama_direktori;
       $parent = $folder->parent;
 
       while ($parent != null) {
-        $parent = Kategori::where('id_kategori', $parent)->first();
-        $root = $parent->nama_kategori;
+        $parent = Direktori::where('id_direktori', $parent)->first();
+        $root = $parent->nama_direktori;
         $parent = $parent->parent;
       }
 
@@ -207,12 +279,12 @@
     }
 
     public static function getArchiveRootId($folder){
-      $root = $folder->id_kategori;
+      $root = $folder->id_direktori;
       $parent = $folder->parent;
 
       while ($parent != null) {
-        $parent = Kategori::where('id_kategori', $parent)->first();
-        $root = $parent->id_kategori;
+        $parent = Direktori::where('id_direktori', $parent)->first();
+        $root = $parent->id_direktori;
         $parent = $parent->parent;
       }
 
@@ -220,12 +292,12 @@
     }
 
     public static function getArchiveRootType($folder){
-      $root = $folder->tipe_kategori;
+      $root = $folder->tipe_direktori;
       $parent = $folder->parent;
 
       while ($parent != null) {
-        $parent = Kategori::where('id_kategori', $parent)->first();
-        $root = $parent->tipe_kategori;
+        $parent = Direktori::where('id_direktori', $parent)->first();
+        $root = $parent->tipe_direktori;
         $parent = $parent->parent;
       }
 
@@ -233,38 +305,38 @@
     }
 
     public static function copyArchiveFolder($folder, $root){
-      $status = $root->tipe_kategori;
+      $status = $root->tipe_direktori;
       $parent = $folder->parent;
       $id = App::generateUniqueID();
       $archive = App::getArchiveRoot($folder);
-      $kategori = Kategori::where('nama_kategori', $folder->nama_kategori)
-                                ->where('root', $root->id_kategori)->first();
+      $direktori = Direktori::where('nama_direktori', $folder->nama_direktori)
+                          ->where('root', $root->id_direktori)->first();
 
-      if(!$kategori){
-        $kategori = new Kategori;
-        $kategori->id_kategori = $id;
-        $kategori->nama_kategori = $folder->nama_kategori;
-        $kategori->tipe_kategori = $status;
-        $kategori->root = $root->id_kategori;
-        $kategori->save();
+      if(!$direktori){
+        $direktori = new Direktori;
+        $direktori->id_direktori = $id;
+        $direktori->nama_direktori = $folder->nama_direktori;
+        $direktori->tipe_direktori = $status;
+        $direktori->root = $root->id_direktori;
+        $direktori->save();
       } else {
-        $id = $kategori->id_kategori;
+        $id = $direktori->id_direktori;
       }
 
       while ($parent != null) {
-        $parent = Kategori::where('id_kategori', $parent)->first();
-        $name = $parent->nama_kategori;
+        $parent = Direktori::where('id_direktori', $parent)->first();
+        $name = $parent->nama_direktori;
 
         if($name != $archive){
-          $kategori = Kategori::where('nama_kategori', $name)
-                                  ->where('root', $root->id_kategori)->first();
-          if(!$kategori){
-            $kategori = new Kategori;
-            $kategori->id_kategori = App::generateUniqueID();
-            $kategori->nama_kategori = $name;
-            $kategori->tipe_kategori = $status;
-            $kategori->root = $root->id_kategori;
-            $kategori->save();
+          $direktori = Direktori::where('nama_direktori', $name)
+                              ->where('root', $root->id_direktori)->first();
+          if(!$direktori){
+            $direktori = new Direktori;
+            $direktori->id_direktori = App::generateUniqueID();
+            $direktori->nama_direktori = $name;
+            $direktori->tipe_direktori = $status;
+            $direktori->root = $root->id_direktori;
+            $direktori->save();
           }
         }
 
@@ -275,39 +347,42 @@
     }
 
     public static function setFolderParent($folder, $root){
-      $status = $root->tipe_kategori;
+      $status = $root->tipe_direktori;
       $parent = $folder->parent;
       $archive = App::getArchiveRoot($folder);
-      $kategori = Kategori::where('nama_kategori', $folder->nama_kategori)
-                              ->where('root', $root->id_kategori)->first();
+      $direktori = Direktori::where('nama_direktori', $folder->nama_direktori)
+                              ->where('root', $root->id_direktori)->first();
+
+      $direktori->parent = $root->id_direktori;
+      $direktori->save();
 
       while ($parent != null) {
-        $parent = Kategori::where('id_kategori', $parent)->first();
-        $name = $parent->nama_kategori;
+        $parent = Direktori::where('id_direktori', $parent)->first();
+        $name = $parent->nama_direktori;
 
         if($name != $archive){
-          $parents = Kategori::where('nama_kategori', $name)
-                                ->where('root', $root->id_kategori)->first();
+          $parents = Direktori::where('nama_direktori', $name)
+                                ->where('root', $root->id_direktori)->first();
 
-          $kategori->parent = $parents->id_kategori;
-          $kategori->save();
+          $direktori->parent = $parents->id_direktori;
+          $direktori->save();
 
-          $nextparent = Kategori::where('id_kategori', $parent->parent)->first();
+          $nextparent = Direktori::where('id_direktori', $parent->parent)->first();
           if($nextparent->parent == null){
-            $parents->parent = $root->id_kategori;
+            $parents->parent = $root->id_direktori;
             $parents->save();
           }
         }
 
-        $kategori = Kategori::where('nama_kategori', $parent->nama_kategori)
-                              ->where('root', $root->id_kategori)->first();
+        $direktori = Direktori::where('nama_direktori', $parent->nama_direktori)
+                              ->where('root', $root->id_direktori)->first();
         $parent = $parent->parent;
       }
     }
 
     public static function getCategoryType($parent){
       if($parent != null){
-        $folder = Kategori::where('id_kategori', $parent)->first();
+        $folder = Direktori::where('id_direktori', $parent)->first();
         $parent = App::getArchiveRootType($folder);
       } else {
         $parent = 4;
@@ -316,21 +391,21 @@
       return $parent;
     }
 
-    public static function removeCategory($kategori){
+    public static function removeCategory($direktori){
       $delete = FALSE;
-      $archive = Kategori::where('id_kategori', $kategori->id_kategori)->first();
+      $archive = Direktori::where('id_direktori', $direktori->id_direktori)->first();
 
       while($archive){
-        $arsip = Arsip::where('id_kategori', $archive->id_kategori)->get();
+        $arsip = Arsip::where('id_direktori', $archive->id_direktori)->get();
         foreach ($arsip as $key => $data) {
           App::deleteArsip($data);
         }
-        $archive = Kategori::where('parent', $archive->id_kategori)->first();
+        $archive = Direktori::where('parent', $archive->id_direktori)->first();
       }
 
-      while ($kategori) {
-        $delete = $kategori->delete();
-        $kategori = Kategori::where('parent', $kategori->id_kategori)->first();
+      while ($direktori) {
+        $delete = $direktori->delete();
+        $direktori = Direktori::where('parent', $direktori->id_direktori)->first();
       }
 
       return $delete;

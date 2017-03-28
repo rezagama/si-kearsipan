@@ -88,13 +88,13 @@ class PesanController extends Controller
     }
 
     public function balas(Request $request, $id){
-      $balasan = $request->input('balasan');
+      $isi_pesan = $request->input('isi_pesan');
 
       $pesan = new IsiPesan;
       $pesan->id_isi_pesan = App::generateUniqueId();
       $pesan->id_pesan = $id;
       $pesan->id_user = Auth::user()->id_user;
-      $pesan->balasan = $balasan;
+      $pesan->isi_pesan = $isi_pesan;
       $pesan->status = 0;
 
       if($pesan->save()){
@@ -141,7 +141,7 @@ class PesanController extends Controller
         $pesan->id_isi_pesan = App::generateUniqueId();
         $pesan->id_pesan = $id_pesan;
         $pesan->id_user = $id_pengirim;
-        $pesan->balasan = $isi;
+        $pesan->isi_pesan = $isi;
         $pesan->status = 0;
 
         if($pesan->save()){
@@ -171,7 +171,7 @@ class PesanController extends Controller
 
     public function update(Request $request, $id){
       $pesan = IsiPesan::where('id_isi_pesan', $id)->first();
-      $pesan->balasan = $request->input('isi_pesan');
+      $pesan->isi_pesan = $request->input('isi_pesan');
 
       if($pesan->status == 0){
         $pesan->status = 3;
