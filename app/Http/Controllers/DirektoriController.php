@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use Redirect;
 use Validator;
 use App\Http\Requests;
@@ -59,7 +60,21 @@ class DirektoriController extends Controller
         $direktori->root = App::getArchiveRootId($direktori);
         $direktori->nama_direktori = $folder;
 
+        if($parent == null){
+          $deskripsi = Auth::user()->nama.' telah menambahkan direktori '. $folder .'.';
+        } else {
+          $deskripsi = Auth::user()->nama.' telah menambahkan folder '. $folder .' ke dalam direktori '.App::getArchiveRoot($direktori).'.';
+        }
+
         if($direktori->save()){
+          $data = array(
+            'deskripsi' => $deskripsi,
+            'url' => $direktori->id_direktori,
+            'option' => 'direktori'
+          );
+
+          App::saveSystemLog($data);
+
           return Redirect::back()->with('info', 'Direktori '.$folder.' berhasil ditambahkan ke dalam folder '.App::getArchiveRoot($direktori).'.');
         } else {
           return Redirect::back()->with('error', 'Terjadi kesalahan pada sistem. Harap coba beberapa saat lagi.');
@@ -110,8 +125,18 @@ class DirektoriController extends Controller
     public function destroy(Request $request){
       $id = $request->input('id');
       $direktori = Direktori::where('id_direktori', $id)->first();
+      $nama = $direktori->nama_direktori;
       if($direktori){
         if(App::removeCategory($direktori)){
+          $data = array(
+            'deskripsi' => Auth::user()->nama.' menghapus direktori '. $nama.'.',
+            'url' => null,
+            'option' => 'direktori',
+            'delete' => $id
+          );
+
+          App::saveSystemLog($data);
+
           return Redirect::back()->with('info', 'Direktori '.$direktori->nama_direktori.' berhasil dihapus.');
         } else {
           return Redirect::back()->with('error', 'Terjadi kesalahan pada sistem. Harap coba beberapa saat lagi.');

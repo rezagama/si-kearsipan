@@ -45,10 +45,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-      if ($e instanceof TokenMismatchException){
-            //redirect to a form. Here is an example of how I handle mine
-            return redirect()->route('login.index')->('error', 'Sesi anda telah habis. Silahkan lakukan login kembali.');
-        }
+        // if ($e instanceof TokenMismatchException){
+        //     //redirect to a form. Here is an example of how I handle mine
+        //     return redirect()->route('login.index')->('error', 'Sesi anda telah habis. Silahkan lakukan login kembali.');
+        // }
 
         return parent::render($request, $e);
     }

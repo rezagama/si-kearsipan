@@ -129,12 +129,22 @@ class ArsipController extends Controller
       $arsip->deskripsi = $deskripsi;
       $arsip->jadwal_retensi = App::formatDate($retensi);
 
-      if($parent != null){
-        $arsip->id_direktori = App::copyArchiveFolder($direktori, $input);
-        $arsip->status = $input->tipe_direktori;
-      } else {
-        $arsip->id_direktori = $id_direktori;
-        $arsip->status = $input->tipe_direktori;
+      if($arsip->id_direktori != $id_direktori){
+        if($parent != null){
+          $arsip->id_direktori = App::copyArchiveFolder($direktori, $input);
+          $arsip->status = $input->tipe_direktori;
+        } else {
+          $arsip->id_direktori = $id_direktori;
+          $arsip->status = $input->tipe_direktori;
+        }
+
+        $data = array(
+          'deskripsi' => Auth::user()->nama.' telah merubah arsip '.$judul.' menjadi '. $input->nama_direktori .'.',
+          'url' => $arsip->id_arsip,
+          'option' => 'arsip'
+        );
+
+        App::saveSystemLog($data);
       }
 
       if(isset($file)){
@@ -148,6 +158,14 @@ class ArsipController extends Controller
       }
 
       if($arsip->save()){
+        $data = array(
+          'deskripsi' => Auth::user()->nama.' telah melakukan perubahan pada arsip '.$judul.'.',
+          'url' => $arsip->id_arsip,
+          'option' => 'arsip'
+        );
+
+        App::saveSystemLog($data);
+
         return Redirect::back()->with('info', 'Perubahan arsip berhasil disimpan.');
       } else {
         return Redirect::back()->with('error', 'Terjadi kesalahan dalam sistem. Harap coba beberapa saat lagi.');
@@ -251,7 +269,7 @@ class ArsipController extends Controller
           'deskripsi' => Auth::user()->nama.' telah mengahpus arsip '.$judul.' dengan nomor arsip '.$no.'.',
           'url' => null,
           'option' => 'arsip',
-          'delete' => true
+          'delete' => $id
         );
 
         App::saveSystemLog($data);

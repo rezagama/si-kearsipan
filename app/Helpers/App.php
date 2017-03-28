@@ -213,29 +213,36 @@
         $riwayat->save();
       }
 
+      if(isset($data['delete'])){
+        App::setLogNull($data['delete']);
+      }
+
       return $save;
     }
 
+    public static function setLogNull($id){
+      $log = Log::where('url', $id)->update(['url' => null]);
+    }
+
     public static function getLogType($option){
-      $logtype = 1;
       switch ($option) {
         case 'arsip':
-          $logtype = 1;
+          $option = 1;
           break;
         case 'akun':
-          $logtype = 2;
+          $option = 2;
           break;
         case 'direktori':
-          $logtype = 3;
+          $option = 3;
           break;
         case 'user':
-          $logtype = 4;
+          $option = 4;
           break;
         default:
-          $logtype = 0;
+          $option = 0;
           break;
       }
-      return $logtype;
+      return $option;
     }
 
     public static function getArchivePath($folder){

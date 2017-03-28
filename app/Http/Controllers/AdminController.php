@@ -133,7 +133,8 @@ class AdminController extends Controller
           $data = array(
             'deskripsi' => Auth::user()->nama.' menghapus akun '. $nama.' ['.$nip.'].',
             'url' => null,
-            'option' => 'akun'
+            'option' => 'akun',
+            'delete' => $id
           );
 
           App::saveSystemLog($data);
